@@ -1,6 +1,8 @@
 package solution.peer.threads;
 
 import solution.peer.Node;
+import solution.peer.commPackage.CommPackage;
+import solution.peer.commPackage.PackageType;
 
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -33,9 +35,27 @@ public class CLIThread extends Thread {
         String commandString = tokenizer.nextToken();
         String parameterString = getParameterFromTokenizer(tokenizer);
         switch (commandString){
-            case ("connect"): {
-                System.out.println("Komanda je start");
-                CommunicatorThread communicatorThread = new CommunicatorThread(thisNode);
+            case ("join"): {
+                System.out.println("Komanda je join");
+                int targetPort = thisNode.getConfigModel().getBootstrapPort();
+                CommPackage p = new CommPackage(thisNode.getNodeInfo(), "", PackageType.BOOTSTRAP_JOIN, targetPort);
+                CommunicatorThread communicatorThread = new CommunicatorThread(thisNode, p);
+                communicatorThread.run();
+                break;
+            }
+            case ("leave"): {
+                System.out.println("Komanda je leave");
+                int targetPort = thisNode.getConfigModel().getBootstrapPort();
+                CommPackage p = new CommPackage(thisNode.getNodeInfo(), "", PackageType.BOOTSTRAP_LEAVE, targetPort);
+                CommunicatorThread communicatorThread = new CommunicatorThread(thisNode, p);
+                communicatorThread.run();
+                break;
+            }
+            case ("ping"): {
+                System.out.println("Komanda je ping");
+                int targetPort = Integer.parseInt(parameterString);
+                CommPackage p = new CommPackage(thisNode.getNodeInfo(), "testporuka", PackageType.PING, targetPort);
+                CommunicatorThread communicatorThread = new CommunicatorThread(thisNode, p);
                 communicatorThread.run();
 
                 break;

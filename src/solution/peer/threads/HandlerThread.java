@@ -27,14 +27,43 @@ public class HandlerThread extends Thread {
     public void run() {
         try {
             CommPackage p = socket.read();
-            System.out.println("Poruka od klijenta [" + p.getSenderGUID() + "]: "+ p.getMessage());
+            socket.close();
+            switch (p.getType()) {
+                case START:{
+                    System.out.println("Handling START message type");
+                    break;
+                }
+                case PING:{
+                    handlePing(p);
+                    break;
+                }
+                case PING_RESPONSE:{
+                    System.out.println("Recieved ping response from "+ p.getSenderNode());
+                    break;
+                }
+            }
 
-            socket.write(new CommPackage(thisNode.getNodeGUID(),"handler salje neku poruku", PackageType.MESSAGE));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void handlePing(CommPackage p){
+        try {
+            System.out.println("Ping od serventa [" + p.getSenderNode() + "]: "+ p.getMessage());
+            socket = new MySocket(p.getSenderNode().getNodeAddress(), p.getSenderNode().getNodePort());
+            try {
+                sleep(1000);
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            }
+            socket.write(new CommPackage(thisNode.getNodeInfo(),"primio ping!", PackageType.PING_RESPONSE, p.getSenderNode().getNodePort()));
 
             socket.close();
         } catch (IOException ioException){
             System.err.println("IOException in HandlerThread run method\nStackTrace:");
             ioException.printStackTrace();
         }
+
     }
 }
