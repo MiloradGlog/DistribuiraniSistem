@@ -37,20 +37,18 @@ public class CLIThread extends Thread {
         switch (commandString){
             case ("join"): {
                 System.out.println("Komanda je join");
-                int targetPort = thisNode.getConfigModel().getBootstrapPort();
-                CommPackage p = new CommPackage(thisNode.getNodeInfo(), "", PackageType.BOOTSTRAP_JOIN, targetPort);
+                CommPackage p = new CommPackage(thisNode.getNodeInfo(), "", PackageType.BOOTSTRAP_JOIN, null);
                 CommunicatorThread communicatorThread = new CommunicatorThread(thisNode, p);
                 communicatorThread.run();
                 break;
             }
             case ("leave"): {
                 System.out.println("Komanda je leave");
-                int targetPort = thisNode.getConfigModel().getBootstrapPort();
-                CommPackage p = new CommPackage(thisNode.getNodeInfo(), "", PackageType.BOOTSTRAP_LEAVE, targetPort);
+                CommPackage p = new CommPackage(thisNode.getNodeInfo(), "", PackageType.BOOTSTRAP_LEAVE, null);
                 CommunicatorThread communicatorThread = new CommunicatorThread(thisNode, p);
                 communicatorThread.run();
                 break;
-            }
+            }/*
             case ("ping"): {
                 System.out.println("Komanda je ping");
                 int targetPort = Integer.parseInt(parameterString);
@@ -59,7 +57,7 @@ public class CLIThread extends Thread {
                 communicatorThread.run();
 
                 break;
-            }
+            }*/
             case ("status"): {
                 System.out.println("Komanda je stop");
                 break;

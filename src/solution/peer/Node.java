@@ -20,6 +20,7 @@ public class Node {
     private ArrayList<NodeInfo> visibleNodes;
 
     public Node (String configFilePath){
+        this.visibleNodes = new ArrayList<>();
         this.gson = new Gson();
         this.configModel = readConfig(configFilePath);
         this.configFilePath = configFilePath;

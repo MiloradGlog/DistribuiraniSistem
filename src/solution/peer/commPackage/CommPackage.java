@@ -1,6 +1,5 @@
 package solution.peer.commPackage;
 
-import solution.peer.Node;
 import solution.peer.NodeInfo;
 
 public class CommPackage {
@@ -8,13 +7,13 @@ public class CommPackage {
     private NodeInfo senderNode;
     private String message;
     private PackageType type;
-    private int targetTempPort;
+    private NodeInfo targetNode;
 
-    public CommPackage(NodeInfo senderNode, String message, PackageType type, int targetTempPort){
+    public CommPackage(NodeInfo senderNode, String message, PackageType type, NodeInfo targetNode){
         this.message = message;
         this.senderNode = senderNode;
         this.type = type;
-        this.targetTempPort = targetTempPort;
+        this.targetNode = targetNode;
     }
 
     public String getMessage() {
@@ -41,11 +40,11 @@ public class CommPackage {
         this.type = type;
     }
 
-    public int getTargetTempPort() {
-        return targetTempPort;
+    public NodeInfo getTargetNode() {
+        return targetNode;
     }
 
-    public void setTargetTempPort(int targetTempPort) {
-        this.targetTempPort = targetTempPort;
+    public void setTargetNode(NodeInfo targetNode) {
+        this.targetNode = targetNode;
     }
 }

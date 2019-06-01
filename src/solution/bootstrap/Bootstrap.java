@@ -5,6 +5,7 @@ import solution.peer.threads.MainServerThread;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Bootstrap {
 
@@ -62,6 +63,13 @@ public class Bootstrap {
         return false;
     }
 
+    public NodeInfo getRandomNode(){
+        if (activeNodes.isEmpty())
+            return null;
+        int rand =  (int)(Math.random()*activeNodes.size());
+        return activeNodes.get(rand);
+    }
+
     public String getBoostrapAddress() {
         return boostrapAddress;
     }
@@ -77,8 +85,6 @@ public class Bootstrap {
     public void printStatus(){
         System.out.println(activeNodes);
     }
-
-
 
     public static void main(String[] args){
         getInstance().initialize();

@@ -2,7 +2,6 @@ package solution.peer.threads;
 
 import solution.peer.commPackage.CommPackage;
 import solution.peer.Node;
-import solution.peer.commPackage.PackageType;
 import solution.socket.MySocket;
 
 import java.io.*;
@@ -67,9 +66,9 @@ public class CommunicatorThread extends Thread{
     }
 */
     private void ping(){
-        System.out.println("Pinging: " + serverName + " on port " + commPackage.getTargetTempPort());
+        System.out.println("Pinging: " + serverName + " on port " + commPackage.getTargetNode());
         try {
-            mySocket = new MySocket(serverName, commPackage.getTargetTempPort());
+            mySocket = new MySocket(serverName, commPackage.getTargetNode().getNodePort());
 
             mySocket.write(commPackage);
 
@@ -88,10 +87,6 @@ public class CommunicatorThread extends Thread{
 
             mySocket.write(commPackage);
 
-            CommPackage p = mySocket.read();
-
-            System.out.println("Bootstrap odgovara: "+ p.getMessage());
-
             mySocket.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -105,10 +100,6 @@ public class CommunicatorThread extends Thread{
             mySocket = new MySocket(thisNode.getConfigModel().getBootstrapAddress(), thisNode.getConfigModel().getBootstrapPort());
 
             mySocket.write(commPackage);
-
-            CommPackage p = mySocket.read();
-
-            System.out.println("Bootstrap odgovara: "+ p.getMessage());
 
             mySocket.close();
         } catch (IOException e) {

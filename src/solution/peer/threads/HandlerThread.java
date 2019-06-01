@@ -1,5 +1,7 @@
 package solution.peer.threads;
 
+import com.google.gson.Gson;
+import solution.peer.NodeInfo;
 import solution.peer.commPackage.CommPackage;
 import solution.peer.Node;
 import solution.peer.commPackage.PackageType;
@@ -10,10 +12,12 @@ import java.net.Socket;
 
 public class HandlerThread extends Thread {
 
+    private Gson gson;
     private Node thisNode;
     private MySocket socket;
 
     public HandlerThread(Socket s, Node thisNode) {
+        gson = new Gson();
         try {
             this.thisNode = thisNode;
             this.socket = new MySocket(s);
@@ -38,8 +42,20 @@ public class HandlerThread extends Thread {
                     break;
                 }
                 case PING_RESPONSE:{
-                    System.out.println("Recieved ping response from "+ p.getSenderNode());
+                    System.out.println("Recieved pong from "+ p.getSenderNode());
                     break;
+                }
+                case BOOTSTRAP_JOIN:{
+                    System.out.println("Handling join");
+                    handleBootstrapJoin(p);
+                    break;
+                }
+                case BOOTSTRAP_LEAVE:{
+                    handleBootstrapLeave(p);
+                    break;
+                }
+                default:{
+                    System.err.println("default in handlerthread");
                 }
             }
 
@@ -57,13 +73,33 @@ public class HandlerThread extends Thread {
             } catch (InterruptedException e){
                 e.printStackTrace();
             }
-            socket.write(new CommPackage(thisNode.getNodeInfo(),"primio ping!", PackageType.PING_RESPONSE, p.getSenderNode().getNodePort()));
+            socket.write(new CommPackage(thisNode.getNodeInfo(),"primio ping!", PackageType.PING_RESPONSE, p.getSenderNode()));
 
             socket.close();
         } catch (IOException ioException){
             System.err.println("IOException in HandlerThread run method\nStackTrace:");
             ioException.printStackTrace();
         }
+
+    }
+
+    private void handleBootstrapJoin(CommPackage p){
+
+        NodeInfo recievedNode = gson.fromJson(p.getMessage(), NodeInfo.class);
+
+        if (recievedNode == null){
+            System.err.println("Primljen cvoj je null");
+        } else {
+
+            System.out.println("Primljeni cvor je "+ recievedNode);
+
+        }
+
+    }
+
+    private void handleBootstrapLeave(CommPackage p){
+
+        System.out.println("Bootstrap odgovara: "+ p.getMessage());
 
     }
 }

@@ -1,5 +1,6 @@
 package solution.bootstrap;
 
+import com.google.gson.Gson;
 import solution.peer.Node;
 import solution.peer.NodeInfo;
 import solution.peer.commPackage.CommPackage;
@@ -11,9 +12,11 @@ import java.net.Socket;
 
 public class BootstrapHandlerThread extends Thread {
 
+    private Gson gson;
     private MySocket socket;
 
     public BootstrapHandlerThread(Socket s) {
+        gson = new Gson();
         try {
             this.socket = new MySocket(s);
         } catch (IOException ioexception){
@@ -26,15 +29,16 @@ public class BootstrapHandlerThread extends Thread {
     public void run() {
         try {
             CommPackage p = socket.read();
+            socket.close();
             switch (p.getType()) {
                 case BOOTSTRAP_JOIN:{
                     System.out.println("Handling JOIN message type");
-                    handleJoin(p, socket);
+                    handleJoin(p);
                     break;
                 }
                 case BOOTSTRAP_LEAVE:{
                     System.out.println("Handle leave");
-                    handleLeave(p, socket);
+                    handleLeave(p);
                     break;
                 }
                 default: {
@@ -48,15 +52,24 @@ public class BootstrapHandlerThread extends Thread {
         }
     }
 
-    private void handleJoin(CommPackage p, MySocket socket){
+    private void handleJoin(CommPackage p){
         try {
             System.out.println("Servent ID:[" + p.getSenderNode() + "] bi da bude dodat");
+            socket = new MySocket(p.getSenderNode().getNodeAddress(), p.getSenderNode().getNodePort());
+
+            NodeInfo randomNode = null;
+            if (!Bootstrap.getInstance().getActiveNodes().isEmpty()){
+                randomNode = Bootstrap.getInstance().getRandomNode();
+            }
 
             if (addNodeToList(p.getSenderNode())){
-                p.setMessage("Uspesno dodao cvor u bootstrap");
+                System.out.println("Uspesno dodao cvor u bootstrap");
             } else {
-                p.setMessage("Dodavanje nije uspelo");
+                System.err.println("Dodavanje nije uspelo");
             }
+
+            //dodamo random node kao poruku za vracanje cvoru
+            p.setMessage(gson.toJson(randomNode));
 
             socket.write(p);
 
@@ -68,9 +81,10 @@ public class BootstrapHandlerThread extends Thread {
         printStatus();
     }
 
-    private void handleLeave(CommPackage p, MySocket socket){
+    private void handleLeave(CommPackage p){
         try {
             System.out.println("Servent ID:[" + p.getSenderNode() + "] bi da izadje");
+            socket = new MySocket(p.getSenderNode().getNodeAddress(), p.getSenderNode().getNodePort());
 
             if (removeNodeFromList(p.getSenderNode())){
                 p.setMessage("Uspesno obrisan sa bootstrapa");
