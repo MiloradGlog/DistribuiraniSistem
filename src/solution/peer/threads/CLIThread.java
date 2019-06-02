@@ -59,7 +59,9 @@ public class CLIThread extends Thread {
                 break;
             }*/
             case ("status"): {
-                System.out.println("Komanda je stop");
+                System.out.println("Cvor: "+ thisNode.getNodeInfo().getNodeGUID());
+                System.out.println("Naslednik mu je: "+ thisNode.getSuccessorNode().getNodeGUID());
+                System.out.println("Vidi cvorove: \n"+ thisNode.getVisibleNodes());
                 break;
             }
             default: {

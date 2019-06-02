@@ -1,6 +1,7 @@
 package solution.peer.threads;
 
 import com.google.gson.Gson;
+import solution.peer.NewNodeReorganizationHandler;
 import solution.peer.NodeInfo;
 import solution.peer.commPackage.CommPackage;
 import solution.peer.Node;
@@ -32,35 +33,46 @@ public class HandlerThread extends Thread {
         try {
             CommPackage p = socket.read();
             socket.close();
-            switch (p.getType()) {
-                case START:{
-                    System.out.println("Handling START message type");
-                    break;
-                }
-                case PING:{
-                    handlePing(p);
-                    break;
-                }
-                case PING_RESPONSE:{
-                    System.out.println("Recieved pong from "+ p.getSenderNode());
-                    break;
-                }
-                case BOOTSTRAP_JOIN:{
-                    System.out.println("Handling join");
-                    handleBootstrapJoin(p);
-                    break;
-                }
-                case BOOTSTRAP_LEAVE:{
-                    handleBootstrapLeave(p);
-                    break;
-                }
-                default:{
-                    System.err.println("default in handlerthread");
-                }
-            }
-
+            determinePackageType(p);
         } catch (IOException e){
             e.printStackTrace();
+        }
+    }
+
+    private void determinePackageType(CommPackage p){
+        switch (p.getType()) {
+            case START:{
+                System.out.println("Handling START message type");
+                break;
+            }
+            case PING:{
+                handlePing(p);
+                break;
+            }
+            case PING_RESPONSE:{
+                System.out.println("Recieved pong from "+ p.getSenderNode());
+                break;
+            }
+            case BOOTSTRAP_JOIN:{
+                System.out.println("Handling join");
+                handleBootstrapJoin(p);
+                break;
+            }
+            case BOOTSTRAP_LEAVE:{
+                handleBootstrapLeave(p);
+                break;
+            }
+            case NEW_NODE_REORGANIZATION_REQUEST:{
+                handleNewNodeReorganizationRequest(p);
+                break;
+            }
+            case SET_SUCCESSOR:{
+                handleSetSuccessor(p);
+                break;
+            }
+            default:{
+                System.err.println("default in handlerthread");
+            }
         }
     }
 
@@ -90,9 +102,16 @@ public class HandlerThread extends Thread {
         if (recievedNode == null){
             System.err.println("Primljen cvoj je null");
         } else {
-
             System.out.println("Primljeni cvor je "+ recievedNode);
+            System.out.println("Zapocinjem reorganizaciju...");
 
+            CommPackage commPackage = new CommPackage(
+                    thisNode.getNodeInfo(),
+                    "zahtevam reogranizaciju",
+                    PackageType.NEW_NODE_REORGANIZATION_REQUEST,
+                    recievedNode);
+
+            new CommunicatorThread(thisNode, commPackage).run();
         }
 
     }
@@ -101,5 +120,20 @@ public class HandlerThread extends Thread {
 
         System.out.println("Bootstrap odgovara: "+ p.getMessage());
 
+    }
+
+    private void handleNewNodeReorganizationRequest(CommPackage p){
+        new NewNodeReorganizationHandler(socket, thisNode).handle(p);
+    }
+
+
+    /**
+     * Postavlja dobijeni cvor kao sledeceg u nizu (svog "naslednika")
+     * @param p (U paketu u message se sadrzi json sa NodeInfo objektom naslednika)
+     */
+    private void handleSetSuccessor(CommPackage p){
+        NodeInfo successorNode = gson.fromJson(p.getMessage(), NodeInfo.class);
+        System.out.println("Moj naslednik je "+ successorNode);
+        thisNode.setSuccessorNode(successorNode);
     }
 }

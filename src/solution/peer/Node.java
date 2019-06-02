@@ -18,6 +18,7 @@ public class Node {
     private NodeInfo nodeInfo;
     private NodeConfigModel configModel;
     private ArrayList<NodeInfo> visibleNodes;
+    private NodeInfo successorNode;
 
     public Node (String configFilePath){
         this.visibleNodes = new ArrayList<>();
@@ -77,15 +78,24 @@ public class Node {
         }
     }
 
+    public void setSuccessorNode(NodeInfo nodeInfo){
+        if (!hasVisibleNode(nodeInfo)) {
+            addVisibleNode(nodeInfo);
+            System.out.println("added successor guid:"+ nodeInfo.getNodeGUID() +" to visiblenodes");
+        }
+        successorNode = nodeInfo;
+    }
+
     public boolean addVisibleNode(NodeInfo nodeInfo){
-        for (NodeInfo n : visibleNodes){
-            if (n.getNodeGUID() == nodeInfo.getNodeGUID()){
-                return false;
-            }
+        if (hasVisibleNode(nodeInfo)){
+            System.err.println("Already has that node in visiblenodes");
+            return false;
         }
         visibleNodes.add(nodeInfo);
+        System.out.println("Dodao cvor "+ nodeInfo.getNodeGUID() + " u visible nodes");
         return true;
     }
+
     public boolean removeVisibleNode(NodeInfo nodeInfo){
         for (NodeInfo n : visibleNodes){
             if (n.getNodeGUID() == nodeInfo.getNodeGUID()){
@@ -94,6 +104,52 @@ public class Node {
             }
         }
         return false;
+    }
+
+    public NodeInfo getLargestGUIDVisibleNode(){
+        if (visibleNodes.isEmpty()){
+            System.err.println("Error in getLargestGUIDVisibleNodeLesserThan, visibleNodes is empty, returning null...\n");
+            return null;
+        }
+        NodeInfo max = visibleNodes.get(0);
+        for (NodeInfo node : visibleNodes){
+            if (node.getNodeGUID() > max.getNodeGUID()){
+                max = node;
+            }
+        }
+        return max;
+    }
+
+    public NodeInfo getLargestGUIDVisibleNodeLesserThan(int n){
+        if (visibleNodes.isEmpty()){
+            System.err.println("Error in getLargestGUIDVisibleNodeLesserThan, visibleNodes is empty, returning null...\n");
+            return null;
+        }
+        NodeInfo max = visibleNodes.get(0);
+        for (NodeInfo node : visibleNodes){
+            if (node.getNodeGUID() > max.getNodeGUID()){
+                if (node.getNodeGUID() < n){
+                    max = node;
+                }
+            }
+        }
+        return max;
+    }
+
+    public NodeInfo getLargestGUIDVisibleNodeLesserThanIncludingThisNode(int n){
+        if (visibleNodes.isEmpty()){
+            System.err.println("Error in getLargestGUIDVisibleNodeLesserThanIncludingThisNode, visibleNodes is empty, returning null...\n");
+            return null;
+        }
+        NodeInfo max = nodeInfo;
+        for (NodeInfo node : visibleNodes){
+            if (node.getNodeGUID() > max.getNodeGUID()){
+                if (node.getNodeGUID() < n){
+                    max = node;
+                }
+            }
+        }
+        return max;
     }
 
     public NodeInfo getNodeInfo() {
@@ -108,8 +164,21 @@ public class Node {
         return configModel;
     }
 
+    public NodeInfo getSuccessorNode() {
+        return successorNode;
+    }
+
     public ArrayList<NodeInfo> getVisibleNodes() {
         return visibleNodes;
+    }
+
+    private boolean hasVisibleNode(NodeInfo nodeInfo){
+        for (NodeInfo n : visibleNodes){
+            if (n.getNodeGUID() == nodeInfo.getNodeGUID()){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

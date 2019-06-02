@@ -1,7 +1,9 @@
 package solution.peer.threads;
 
+import solution.peer.NodeInfo;
 import solution.peer.commPackage.CommPackage;
 import solution.peer.Node;
+import solution.peer.commPackage.PackageType;
 import solution.socket.MySocket;
 
 import java.io.*;
@@ -36,6 +38,10 @@ public class CommunicatorThread extends Thread{
             }
             case BOOTSTRAP_LEAVE:{
                 leaveBootstrap();
+                break;
+            }
+            case NEW_NODE_REORGANIZATION_REQUEST:{
+                sendNewNodeReorganizationRequest();
                 break;
             }
             default:{
@@ -103,6 +109,18 @@ public class CommunicatorThread extends Thread{
 
             mySocket.close();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendNewNodeReorganizationRequest(){
+        try {
+            MySocket socket = new MySocket(commPackage.getTargetNode().getNodeAddress(), commPackage.getTargetNode().getNodePort());
+            socket.write(commPackage);
+
+            socket.close();
+        } catch (IOException e){
+            System.err.println("IOException u handlebootstrapjoin\nStackTrace:");
             e.printStackTrace();
         }
     }

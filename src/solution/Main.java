@@ -15,7 +15,7 @@ public class Main {
          * 1)Kad cvor dobije nazad radnom cvor, desava se reorganizacija sistema
          * 1.1)U iz handlerthread dodatog cvora prosledi zahtev za 'razmestanje' cvoru koji si dobio od bootstrapa
          * 1.2)Implementirati algoritam za 'razmestanje"
-         * 3)Napravi da cim se cvor startuje kontaktira bootstrap
+         * 2)Napravi da cim se cvor startuje kontaktira bootstrap
          * ...
          */
 
