@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57a17273-5b7f-4ff3-b313-e1c52e380a89" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/solution/peer/NewNodeReorganizationHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/Node.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/commPackage/PackageType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/commPackage/PackageType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/solution/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solution/peer/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/peer/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -120,7 +108,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="249">
@@ -156,11 +144,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/solution/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="15" column="39" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
+              <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -232,13 +220,13 @@
         <option value="$PROJECT_DIR$/src/solution/bootstrap/BootstrapHandlerThread.java" />
         <option value="$PROJECT_DIR$/src/solution/bootstrap/Bootstrap.java" />
         <option value="$PROJECT_DIR$/src/solution/peer/commPackage/CommPackage.java" />
-        <option value="$PROJECT_DIR$/src/solution/Main.java" />
         <option value="$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java" />
         <option value="$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java" />
         <option value="$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java" />
         <option value="$PROJECT_DIR$/src/solution/peer/Node.java" />
         <option value="$PROJECT_DIR$/src/solution/peer/NewNodeReorganizationHandler.java" />
         <option value="$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java" />
+        <option value="$PROJECT_DIR$/src/solution/Main.java" />
       </list>
     </option>
   </component>
@@ -334,7 +322,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559503649396" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559505494628" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -424,17 +412,18 @@
       <workItem from="1559142746313" duration="20071000" />
       <workItem from="1559392878152" duration="13274000" />
       <workItem from="1559414111335" duration="8221000" />
-      <workItem from="1559484992386" duration="12600000" />
+      <workItem from="1559484992386" duration="12928000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55112000" />
+    <option name="totallyTimeSpent" value="55440000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1312" y="30" width="1320" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22777778" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22777778" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -443,7 +432,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32872504" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2611367" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2611367" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -562,16 +551,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/solution/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="39" selection-start-line="15" selection-start-column="39" selection-end-line="15" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -681,6 +660,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="249">
           <caret line="63" column="81" selection-start-line="63" selection-start-column="81" selection-end-line="63" selection-end-column="81" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/solution/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
