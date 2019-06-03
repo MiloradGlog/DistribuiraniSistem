@@ -1,5 +1,6 @@
 package solution.peer.threads;
 
+import com.google.gson.Gson;
 import solution.peer.Node;
 import solution.peer.commPackage.CommPackage;
 import solution.peer.commPackage.PackageType;
@@ -11,9 +12,11 @@ public class CLIThread extends Thread {
 
     private Scanner in;
     private Node thisNode;
+    private Gson gson;
 
     public CLIThread(Node node){
         this.thisNode = node;
+        gson = new Gson();
         in = new Scanner(System.in);
     }
 
@@ -36,28 +39,20 @@ public class CLIThread extends Thread {
         String parameterString = getParameterFromTokenizer(tokenizer);
         switch (commandString){
             case ("join"): {
-                System.out.println("Komanda je join");
-                CommPackage p = new CommPackage(thisNode.getNodeInfo(), "", PackageType.BOOTSTRAP_JOIN, null);
-                CommunicatorThread communicatorThread = new CommunicatorThread(thisNode, p);
-                communicatorThread.run();
+                System.out.println("joining...");
+                sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), "", PackageType.BOOTSTRAP_JOIN, null));
                 break;
             }
             case ("leave"): {
-                System.out.println("Komanda je leave");
-                CommPackage p = new CommPackage(thisNode.getNodeInfo(), "", PackageType.BOOTSTRAP_LEAVE, null);
-                CommunicatorThread communicatorThread = new CommunicatorThread(thisNode, p);
-                communicatorThread.run();
+                System.out.println("leaving...");
+                sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), "", PackageType.BOOTSTRAP_LEAVE, null));
+                sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), gson.toJson(thisNode.getSuccessorNode()), PackageType.BROADCAST_LEAVE, null));
                 break;
-            }/*
-            case ("ping"): {
-                System.out.println("Komanda je ping");
-                int targetPort = Integer.parseInt(parameterString);
-                CommPackage p = new CommPackage(thisNode.getNodeInfo(), "testporuka", PackageType.PING, targetPort);
-                CommunicatorThread communicatorThread = new CommunicatorThread(thisNode, p);
-                communicatorThread.run();
-
+            }case ("broadcast"): {
+                System.out.println("Attempting broadcast...");
+                sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), parameterString, PackageType.BROADCAST, null));
                 break;
-            }*/
+            }
             case ("status"): {
                 System.out.println("Cvor: "+ thisNode.getNodeInfo().getNodeGUID());
                 System.out.println("Naslednik mu je: "+ thisNode.getSuccessorNode().getNodeGUID());
@@ -70,6 +65,11 @@ public class CLIThread extends Thread {
             }
 
         }
+    }
+
+    private void sendCommPackageViaCommThread(CommPackage p){
+        CommunicatorThread communicatorThread = new CommunicatorThread(thisNode, p);
+        communicatorThread.run();
     }
 
     private String getParameterFromTokenizer(StringTokenizer tokenizer){

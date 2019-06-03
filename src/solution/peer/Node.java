@@ -2,7 +2,10 @@ package solution.peer;
 
 import com.google.gson.Gson;
 import solution.configuration.NodeConfigModel;
+import solution.peer.commPackage.CommPackage;
+import solution.peer.commPackage.PackageType;
 import solution.peer.threads.CLIThread;
+import solution.peer.threads.CommunicatorThread;
 import solution.peer.threads.MainServerThread;
 
 import java.io.IOException;
@@ -10,6 +13,8 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Node {
 
@@ -17,11 +22,11 @@ public class Node {
     private Gson gson;
     private NodeInfo nodeInfo;
     private NodeConfigModel configModel;
-    private ArrayList<NodeInfo> visibleNodes;
+    private List<NodeInfo> visibleNodes;
     private NodeInfo successorNode;
 
     public Node (String configFilePath){
-        this.visibleNodes = new ArrayList<>();
+        this.visibleNodes = Collections.synchronizedList(new ArrayList<NodeInfo>());
         this.gson = new Gson();
         this.configModel = readConfig(configFilePath);
         this.configFilePath = configFilePath;
@@ -49,11 +54,19 @@ public class Node {
             cliThread.start();
             serverThread.start();
 
+            joinBootstrap();
+
         } catch (IOException ioException) {
             System.err.println("Error when initializing Node: "+ nodeInfo.getNodeGUID() + "\nStackTrace:");
             ioException.printStackTrace();
         }
 
+    }
+
+    public void joinBootstrap(){
+        CommPackage p = new CommPackage(getNodeInfo(), "", PackageType.BOOTSTRAP_JOIN, null);
+        CommunicatorThread communicatorThread = new CommunicatorThread(this, p);
+        communicatorThread.run();
     }
 
     private NodeConfigModel readConfig(String path){
@@ -79,9 +92,18 @@ public class Node {
     }
 
     public void setSuccessorNode(NodeInfo nodeInfo){
-        if (!hasVisibleNode(nodeInfo)) {
-            addVisibleNode(nodeInfo);
-            System.out.println("added successor guid:"+ nodeInfo.getNodeGUID() +" to visiblenodes");
+        synchronized (visibleNodes){
+            if (!hasVisibleNode(nodeInfo)) {
+                addVisibleNode(nodeInfo);
+                System.out.println("added successor guid:"+ nodeInfo.getNodeGUID() +" to visiblenodes");
+            }
+            if (successorNode != null){
+                for (NodeInfo n : visibleNodes){
+                    if (n.getNodeGUID() == successorNode.getNodeGUID()){
+                        visibleNodes.remove(n);
+                    }
+                }
+            }
         }
         successorNode = nodeInfo;
     }
@@ -168,7 +190,7 @@ public class Node {
         return successorNode;
     }
 
-    public ArrayList<NodeInfo> getVisibleNodes() {
+    public List<NodeInfo> getVisibleNodes() {
         return visibleNodes;
     }
 

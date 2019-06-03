@@ -2,7 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57a17273-5b7f-4ff3-b313-e1c52e380a89" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/Node.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/commPackage/PackageType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/commPackage/PackageType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/CLIThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/CLIThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/CommunicatorThread$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/CommunicatorThread$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/CommunicatorThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/CommunicatorThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/solution/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/solution/peer/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/peer/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -11,84 +25,27 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="68">
-                    <caret line="4" column="106" selection-start-line="4" selection-start-column="106" selection-end-line="4" selection-end-column="106" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/solution/peer/Node.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/solution/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="116" column="27" selection-start-line="116" selection-start-column="27" selection-end-line="116" selection-end-column="27" />
+            <state relative-caret-position="289">
+              <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#readConfig#0;class#Node#0" />
-                <element signature="method#saveConfig#0;class#Node#0" />
-                <element signature="method#setSuccessorNode#0;class#Node#0" />
-                <element signature="method#addVisibleNode#0;class#Node#0" />
-                <element signature="method#removeVisibleNode#0;class#Node#0" />
-                <element signature="method#getLargestGUIDVisibleNodeLesserThan#1;class#Node#0" />
-                <element signature="e#3339#3371#1" />
-                <element signature="e#5096#5097#0" expanded="true" />
-                <element signature="e#3420#3461#1" />
-                <element signature="e#5186#5187#0" expanded="true" />
-                <element signature="e#3507#3542#1" />
-                <element signature="e#5267#5268#0" expanded="true" />
-                <element signature="e#4856#4857#0" expanded="true" />
-                <element signature="e#4892#4893#0" expanded="true" />
-                <element signature="e#3593#3629#1" />
-                <element signature="e#5432#5433#0" expanded="true" />
-                <element signature="e#5758#5759#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/solution/peer/commPackage/CommPackage.java">
+        <entry file="file://$PROJECT_DIR$/src/solution/socket/MySocketInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/solution/configuration/NodeConfigModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="13" column="24" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+            <state relative-caret-position="272">
+              <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1032#1033#0" expanded="true" />
-                <element signature="e#1066#1067#0" expanded="true" />
-                <element signature="e#1120#1121#0" expanded="true" />
-                <element signature="e#1166#1167#0" expanded="true" />
-                <element signature="e#1209#1210#0" expanded="true" />
-                <element signature="e#1248#1249#0" expanded="true" />
-                <element signature="e#1312#1313#0" expanded="true" />
-                <element signature="e#1368#1369#0" expanded="true" />
-                <element signature="e#1405#1406#0" expanded="true" />
-                <element signature="e#1441#1442#0" expanded="true" />
-                <element signature="e#1496#1497#0" expanded="true" />
-                <element signature="e#1546#1547#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -97,24 +54,31 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-468">
-              <caret line="65" column="41" selection-start-line="65" selection-start-column="41" selection-end-line="65" selection-end-column="41" />
+            <state relative-caret-position="447">
+              <caret line="78" column="22" selection-start-line="78" selection-start-column="22" selection-end-line="78" selection-end-column="22" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#handlePing#0;class#HandlerThread#0" />
+                <element signature="method#HandlerThread#0;class#HandlerThread#0" />
+                <element signature="e#565#657#0" />
+                <element signature="e#689#838#0" />
+                <element signature="method#run#0;class#HandlerThread#0" />
+                <element signature="e#896#1015#0" />
+                <element signature="e#1037#1081#0" />
+                <element signature="e#1197#1302#1" />
+                <element signature="e#1325#1394#1" />
+                <element signature="e#1426#1542#1" />
+                <element signature="e#1575#1706#1" />
+                <element signature="e#1740#1819#1" />
+                <element signature="e#1869#1962#1" />
+                <element signature="e#1994#2071#1" />
+                <element signature="e#2092#2171#1" />
+                <element signature="e#2465#2509#0" />
+                <element signature="e#2540#2592#0" />
+                <element signature="e#2791#2933#0" />
+                <element signature="method#handleBootstrapJoin#0;class#HandlerThread#0" />
                 <element signature="method#handleBootstrapLeave#0;class#HandlerThread#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="63" column="81" selection-start-line="63" selection-start-column="81" selection-end-line="63" selection-end-column="81" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="method#handleNewNodeReorganizationRequest#0;class#HandlerThread#0" />
+                <element signature="docComment;method#handleSetSuccessor#0;class#HandlerThread#0" />
+                <element signature="method#handleSetSuccessor#0;class#HandlerThread#0" />
               </folding>
             </state>
           </provider>
@@ -123,11 +87,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/solution/peer/NewNodeReorganizationHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="99" column="43" selection-start-line="99" selection-start-column="43" selection-end-line="99" selection-end-column="43" />
+            <state relative-caret-position="487">
+              <caret line="99" selection-start-line="99" selection-end-line="99" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/solution/peer/commPackage/CommPackage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="13" column="37" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -135,20 +108,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="118" column="36" selection-start-line="118" selection-start-column="36" selection-end-line="118" selection-end-column="36" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/solution/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+            <state relative-caret-position="2181">
+              <caret line="140" selection-start-line="140" selection-end-line="140" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -157,10 +118,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/MainServerThread.java">
+        <entry file="file://$PROJECT_DIR$/src/solution/peer/Node.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="43" column="29" selection-start-line="43" selection-start-column="29" selection-end-line="43" selection-end-column="29" />
+            <state relative-caret-position="391">
+              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -169,10 +130,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/solution/bootstrap/BootstrapHandlerThread.java">
+        <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="30" selection-start-line="30" selection-end-line="30" />
+            <state relative-caret-position="357">
+              <caret line="48" column="160" selection-start-line="48" selection-start-column="160" selection-end-line="48" selection-end-column="160" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -220,21 +181,24 @@
         <option value="$PROJECT_DIR$/src/solution/bootstrap/BootstrapHandlerThread.java" />
         <option value="$PROJECT_DIR$/src/solution/bootstrap/Bootstrap.java" />
         <option value="$PROJECT_DIR$/src/solution/peer/commPackage/CommPackage.java" />
+        <option value="$PROJECT_DIR$/src/solution/peer/NewNodeReorganizationHandler.java" />
+        <option value="$PROJECT_DIR$/files/config4.json" />
+        <option value="$PROJECT_DIR$/files/config5.json" />
+        <option value="$PROJECT_DIR$/files/config6.json" />
         <option value="$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java" />
+        <option value="$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java" />
         <option value="$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java" />
         <option value="$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java" />
         <option value="$PROJECT_DIR$/src/solution/peer/Node.java" />
-        <option value="$PROJECT_DIR$/src/solution/peer/NewNodeReorganizationHandler.java" />
-        <option value="$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java" />
         <option value="$PROJECT_DIR$/src/solution/Main.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1306" />
-    <option name="y" value="30" />
-    <option name="width" value="1548" />
-    <option name="height" value="916" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -315,14 +279,14 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559505494628" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559561319743" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -379,7 +343,7 @@
     <configuration name="Main" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="solution.Main" />
       <module name="DistribuiraniSistem" />
-      <option name="PROGRAM_PARAMETERS" value="files/config1.json" />
+      <option name="PROGRAM_PARAMETERS" value="files/config3.json" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="solution.*" />
@@ -413,17 +377,18 @@
       <workItem from="1559392878152" duration="13274000" />
       <workItem from="1559414111335" duration="8221000" />
       <workItem from="1559484992386" duration="12928000" />
+      <workItem from="1559553809577" duration="4798000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55440000" />
+    <option name="totallyTimeSpent" value="60286000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1312" y="30" width="1320" height="784" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22777778" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15245202" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -432,7 +397,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32872504" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.2611367" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2611051" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -463,18 +428,20 @@
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java</url>
+          <line>42</line>
+          <properties />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/files/config.txt" />
-    <entry file="file://$PROJECT_DIR$/src/solution/socket/MySocketInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/solution/configuration/ConfigModel.java" />
     <entry file="file://$PROJECT_DIR$/src/solution/configuration/Configuration.java" />
     <entry file="file://$PROJECT_DIR$/files/config.json" />
@@ -533,8 +500,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/solution/bootstrap/Bootstrap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="48" column="29" selection-start-line="48" selection-start-column="29" selection-end-line="48" selection-end-column="29" />
+        <state relative-caret-position="493">
+          <caret line="33" column="58" selection-start-line="33" selection-start-column="58" selection-end-line="33" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -543,71 +510,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/solution/bootstrap/BootstrapHandlerThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="106" selection-start-line="4" selection-start-column="106" selection-end-line="4" selection-end-column="106" />
+        <state relative-caret-position="1360">
+          <caret line="101" column="22" selection-start-line="101" selection-start-column="22" selection-end-line="101" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/MainServerThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="43" column="29" selection-start-line="43" selection-start-column="29" selection-end-line="43" selection-end-column="29" />
+        <state relative-caret-position="68">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/solution/peer/commPackage/CommPackage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="118" column="36" selection-start-line="118" selection-start-column="36" selection-end-line="118" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/solution/peer/Node.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="116" column="27" selection-start-line="116" selection-start-column="27" selection-end-line="116" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#readConfig#0;class#Node#0" />
-            <element signature="method#saveConfig#0;class#Node#0" />
-            <element signature="method#setSuccessorNode#0;class#Node#0" />
-            <element signature="method#addVisibleNode#0;class#Node#0" />
-            <element signature="method#removeVisibleNode#0;class#Node#0" />
-            <element signature="method#getLargestGUIDVisibleNodeLesserThan#1;class#Node#0" />
-            <element signature="e#3339#3371#1" />
-            <element signature="e#5096#5097#0" expanded="true" />
-            <element signature="e#3420#3461#1" />
-            <element signature="e#5186#5187#0" expanded="true" />
-            <element signature="e#3507#3542#1" />
-            <element signature="e#5267#5268#0" expanded="true" />
-            <element signature="e#4856#4857#0" expanded="true" />
-            <element signature="e#4892#4893#0" expanded="true" />
-            <element signature="e#3593#3629#1" />
-            <element signature="e#5432#5433#0" expanded="true" />
-            <element signature="e#5758#5759#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -634,32 +547,116 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java">
+    <entry file="file://$PROJECT_DIR$/files/config6.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-468">
-          <caret line="65" column="41" selection-start-line="65" selection-start-column="41" selection-end-line="65" selection-end-column="41" />
+        <state>
+          <caret column="29" selection-start-column="29" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/files/config5.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="29" selection-start-column="29" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/files/config4.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/solution/peer/commPackage/CommPackage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="13" column="37" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="48" column="160" selection-start-line="48" selection-start-column="160" selection-end-line="48" selection-end-column="160" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#handlePing#0;class#HandlerThread#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2181">
+          <caret line="140" selection-start-line="140" selection-end-line="140" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="59" selection-start-line="4" selection-start-column="59" selection-end-line="4" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="78" column="22" selection-start-line="78" selection-start-column="22" selection-end-line="78" selection-end-column="22" />
+          <folding>
+            <element signature="method#HandlerThread#0;class#HandlerThread#0" />
+            <element signature="e#565#657#0" />
+            <element signature="e#689#838#0" />
+            <element signature="method#run#0;class#HandlerThread#0" />
+            <element signature="e#896#1015#0" />
+            <element signature="e#1037#1081#0" />
+            <element signature="e#1197#1302#1" />
+            <element signature="e#1325#1394#1" />
+            <element signature="e#1426#1542#1" />
+            <element signature="e#1575#1706#1" />
+            <element signature="e#1740#1819#1" />
+            <element signature="e#1869#1962#1" />
+            <element signature="e#1994#2071#1" />
+            <element signature="e#2092#2171#1" />
+            <element signature="e#2465#2509#0" />
+            <element signature="e#2540#2592#0" />
+            <element signature="e#2791#2933#0" />
+            <element signature="method#handleBootstrapJoin#0;class#HandlerThread#0" />
             <element signature="method#handleBootstrapLeave#0;class#HandlerThread#0" />
+            <element signature="method#handleNewNodeReorganizationRequest#0;class#HandlerThread#0" />
+            <element signature="docComment;method#handleSetSuccessor#0;class#HandlerThread#0" />
+            <element signature="method#handleSetSuccessor#0;class#HandlerThread#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/solution/peer/NewNodeReorganizationHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="99" column="43" selection-start-line="99" selection-start-column="43" selection-end-line="99" selection-end-column="43" />
+        <state relative-caret-position="487">
+          <caret line="99" selection-start-line="99" selection-end-line="99" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java">
+    <entry file="file://$PROJECT_DIR$/src/solution/peer/Node.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="63" column="81" selection-start-line="63" selection-start-column="81" selection-end-line="63" selection-end-column="81" />
+        <state relative-caret-position="391">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/solution/socket/MySocketInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -668,8 +665,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/solution/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+        <state relative-caret-position="289">
+          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

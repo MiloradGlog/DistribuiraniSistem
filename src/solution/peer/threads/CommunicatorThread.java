@@ -44,6 +44,14 @@ public class CommunicatorThread extends Thread{
                 sendNewNodeReorganizationRequest();
                 break;
             }
+            case BROADCAST:{
+                sendBroadcast();
+                break;
+            }
+            case BROADCAST_LEAVE:{
+                sendLeaveBroadcast();
+                break;
+            }
             default:{
                 System.err.println("no comm package type in commthread constructor");
                 break;
@@ -104,6 +112,34 @@ public class CommunicatorThread extends Thread{
             System.out.println("Attempting to leave bootstrap...");
 
             mySocket = new MySocket(thisNode.getConfigModel().getBootstrapAddress(), thisNode.getConfigModel().getBootstrapPort());
+
+            mySocket.write(commPackage);
+
+            mySocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendBroadcast(){
+        try {
+            System.out.println("Sending broadcast...");
+
+            mySocket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+
+            mySocket.write(commPackage);
+
+            mySocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendLeaveBroadcast(){
+        try {
+            System.out.println("Sending leave broadcast...");
+
+            mySocket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
 
             mySocket.write(commPackage);
 

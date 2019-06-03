@@ -70,6 +70,14 @@ public class HandlerThread extends Thread {
                 handleSetSuccessor(p);
                 break;
             }
+            case BROADCAST:{
+                handleBroadcast(p);
+                break;
+            }
+            case BROADCAST_LEAVE:{
+                handleLeaveBroadcast(p);
+                break;
+            }
             default:{
                 System.err.println("default in handlerthread");
             }
@@ -126,6 +134,59 @@ public class HandlerThread extends Thread {
         new NewNodeReorganizationHandler(socket, thisNode).handle(p);
     }
 
+    private void handleBroadcast(CommPackage p){
+        if (p.getSenderNode().getNodeGUID() == thisNode.getNodeInfo().getNodeGUID()){
+            System.out.println("Broadcast uspesno obavljen!");
+        }
+        else {
+            System.out.println("Cvor "+ p.getSenderNode().getNodeGUID() +" salje broadcast, poruka: "+ p.getMessage());
+            try {
+                System.out.println("Prosledjujem broadcast...");
+                socket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+                socket.write(p);
+                socket.close();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void handleLeaveBroadcast(CommPackage p){
+        if (p.getSenderNode().getNodeGUID() == thisNode.getNodeInfo().getNodeGUID()){
+            //broadcast dosao do onog ko ga salje
+            System.out.println("Uspesno obavestio cvorove o izlasku!");
+            System.exit(0);
+        }
+        else if (p.getSenderNode().getNodeGUID() == thisNode.getSuccessorNode().getNodeGUID()){
+            //broadcast je na prethodniku onog ko ga salje
+            try {
+                System.out.println("Prosledjujem leave broadcast clanu koji izlazi...");
+                socket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+                socket.write(p);
+                socket.close();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            NodeInfo newSuccessor = gson.fromJson(p.getMessage(), NodeInfo.class);
+            if (newSuccessor == null){
+                System.err.println("New succesor je null u leavebroadcast!");
+            } else {
+                thisNode.setSuccessorNode(newSuccessor);
+            }
+        }
+        else {
+            //broadcast se prosledjuje
+            System.out.println("Cvor "+ p.getSenderNode().getNodeGUID() +" napusta sistem...");
+            try {
+                System.out.println("Prosledjujem broadcast...");
+                socket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+                socket.write(p);
+                socket.close();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * Postavlja dobijeni cvor kao sledeceg u nizu (svog "naslednika")
