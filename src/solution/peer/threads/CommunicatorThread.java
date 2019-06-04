@@ -25,7 +25,7 @@ public class CommunicatorThread extends Thread{
 
         switch (commPackage.getType()){
             case START:{
-                System.out.println("Created CommThread with START message type");
+                sendStartBroadcast();
                 break;
             }
             case PING:{
@@ -50,6 +50,10 @@ public class CommunicatorThread extends Thread{
             }
             case BROADCAST_LEAVE:{
                 sendLeaveBroadcast();
+                break;
+            }
+            case COUNT:{
+                sendCountBroadcast();
                 break;
             }
             default:{
@@ -79,6 +83,21 @@ public class CommunicatorThread extends Thread{
 
     }
 */
+
+    private void sendStartBroadcast(){
+        try {
+            System.out.println("Sending start broadcast...");
+
+            mySocket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+
+            mySocket.write(commPackage);
+
+            mySocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void ping(){
         System.out.println("Pinging: " + serverName + " on port " + commPackage.getTargetNode());
         try {
@@ -157,6 +176,20 @@ public class CommunicatorThread extends Thread{
             socket.close();
         } catch (IOException e){
             System.err.println("IOException u handlebootstrapjoin\nStackTrace:");
+            e.printStackTrace();
+        }
+    }
+
+    private void sendCountBroadcast(){
+        try {
+            System.out.println("Sending count broadcast...");
+
+            mySocket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+
+            mySocket.write(commPackage);
+
+            mySocket.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

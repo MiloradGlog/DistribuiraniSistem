@@ -2,6 +2,7 @@ package solution.peer.threads;
 
 import com.google.gson.Gson;
 import solution.peer.Node;
+import solution.peer.NodeInfo;
 import solution.peer.commPackage.CommPackage;
 import solution.peer.commPackage.PackageType;
 
@@ -38,6 +39,22 @@ public class CLIThread extends Thread {
         String commandString = tokenizer.nextToken();
         String parameterString = getParameterFromTokenizer(tokenizer);
         switch (commandString){
+            case ("start"): {
+                int n = Integer.parseInt(parameterString);
+                System.out.println("starting for X = "+ n);
+                //proveri dal vec ima rezultat za zadato X
+                if (thisNode.getResults().hasResultsFor(n)){
+                    showResultForX(n);
+                    break;
+                }
+                sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), "1", PackageType.COUNT, new NodeInfo(n, 0, "")));//nodeinfo nosi X
+                break;
+            }
+            case ("result"): {
+                int n = Integer.parseInt(parameterString);
+                showResultForX(n);
+                break;
+            }
             case ("join"): {
                 System.out.println("joining...");
                 sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), "", PackageType.BOOTSTRAP_JOIN, null));
@@ -55,7 +72,11 @@ public class CLIThread extends Thread {
             }
             case ("status"): {
                 System.out.println("Cvor: "+ thisNode.getNodeInfo().getNodeGUID());
-                System.out.println("Naslednik mu je: "+ thisNode.getSuccessorNode().getNodeGUID());
+                try {
+                    System.out.println("Naslednik mu je: "+ thisNode.getSuccessorNode().getNodeGUID());
+                } catch (NullPointerException e){
+                    System.out.println("Jedini cvor u mrezi.");
+                }
                 System.out.println("Vidi cvorove: \n"+ thisNode.getVisibleNodes());
                 break;
             }
@@ -67,9 +88,19 @@ public class CLIThread extends Thread {
         }
     }
 
+    private void showResultForX(int n){
+        System.out.println("showing results for "+ n);
+        if (thisNode.getResults().hasResultsFor(n)){
+            System.out.println(thisNode.getResults().getResultSet(n));
+        }else {
+            System.out.println("Nemam rezultate za to n");
+        }
+
+    }
+
     private void sendCommPackageViaCommThread(CommPackage p){
         CommunicatorThread communicatorThread = new CommunicatorThread(thisNode, p);
-        communicatorThread.run();
+        communicatorThread.start();
     }
 
     private String getParameterFromTokenizer(StringTokenizer tokenizer){

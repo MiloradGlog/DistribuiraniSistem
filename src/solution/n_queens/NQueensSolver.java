@@ -5,26 +5,28 @@ import java.util.Arrays;
 
 public class NQueensSolver {
     // ovde ces da pamtis rezultate po k,v
-    private ArrayList<int[][]> solutions;
+    private Result result;
+    private boolean finished;
+    private int n;
 
     public NQueensSolver(){
-        solutions = new ArrayList<>();
+        finished = false;
+        result = new Result();
     }
 
     public void solve(int start, int end, int n){
+        finished = false;
+        this.n = n;
         int[][] curr;
         System.out.println("iterations:");
         for (int i = start; i <= end; i++){
             curr = calculatePositionsBasedOnNumber(i,n);
             if (isSolution(curr, n)){
-                solutions.add(curr);
+                result.addResult(curr);
             }
         }
-
-        for (int[][] mat : solutions){
-            printMatrix(mat, n);
-            System.out.println();
-        }
+        printResults();
+        finished = true;
     }
 
 
@@ -40,9 +42,14 @@ public class NQueensSolver {
         int row = 0;
 
         for (int i = 1; i < n; i++){
-            row = number / (int)Math.pow(n, n-i);
-            mat[i-1][row] = 1;
-            number = number - (row * (int)Math.pow(n, n-i));
+            try {
+                row = number / (int)Math.pow(n, n-i);
+                mat[i-1][row] = 1;
+                number = number - (row * (int)Math.pow(n, n-i));
+            } catch (ArrayIndexOutOfBoundsException e){
+                System.err.println("ArrayIndexOutOfBounds za broj: "+ number +" u calculatePositionsBasedOnNumber.\nStackTrace:");
+                e.printStackTrace();
+            }
         }
         mat[n-1][number] = 1;
 
@@ -54,6 +61,14 @@ public class NQueensSolver {
             for (int j = 0; j < n; j++){
                 System.out.print(mat[j][i]+" ");
             }
+            System.out.println();
+        }
+    }
+
+    public void printResults(){
+
+        for (int[][] mat : result.getResults()){
+            printMatrix(mat, n);
             System.out.println();
         }
     }
@@ -122,5 +137,13 @@ public class NQueensSolver {
             }
         }
         return true;
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public boolean isFinished() {
+        return finished;
     }
 }

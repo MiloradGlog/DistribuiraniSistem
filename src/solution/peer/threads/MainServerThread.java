@@ -41,7 +41,7 @@ public class MainServerThread extends Thread{
                 //Ako je Node
                 try {
                     Socket server = serverSocket.accept();
-                    new HandlerThread(server, thisNode).run();
+                    new HandlerThread(server, thisNode).start();
 
                 } catch (SocketTimeoutException s) {
                     System.out.println("Socket timed out!");
@@ -54,7 +54,7 @@ public class MainServerThread extends Thread{
                 //Ako je Bootstrap
                 try {
                     Socket server = serverSocket.accept();
-                    new BootstrapHandlerThread(server).run();
+                    new BootstrapHandlerThread(server).start();
 
                 } catch (SocketTimeoutException s) {
                     System.out.println("Socket timed out!");

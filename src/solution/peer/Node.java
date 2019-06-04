@@ -2,6 +2,7 @@ package solution.peer;
 
 import com.google.gson.Gson;
 import solution.configuration.NodeConfigModel;
+import solution.n_queens.*;
 import solution.peer.commPackage.CommPackage;
 import solution.peer.commPackage.PackageType;
 import solution.peer.threads.CLIThread;
@@ -24,6 +25,8 @@ public class Node {
     private NodeConfigModel configModel;
     private List<NodeInfo> visibleNodes;
     private NodeInfo successorNode;
+    private FingerTable fingerTable;
+    private Results results;
 
     public Node (String configFilePath){
         this.visibleNodes = Collections.synchronizedList(new ArrayList<NodeInfo>());
@@ -31,7 +34,8 @@ public class Node {
         this.configModel = readConfig(configFilePath);
         this.configFilePath = configFilePath;
         this.nodeInfo = new NodeInfo(configModel.getNodeGUID(), configModel.getNodePort(), configModel.getNodeAddress());
-
+        this.fingerTable = new FingerTable();
+        this.results = new Results();
         this.initialize();
     }
 /*
@@ -61,6 +65,50 @@ public class Node {
             ioException.printStackTrace();
         }
 
+    }
+
+    public void initiateJobs(int count, int n){
+        //podelim poslove;
+        ArrayList<Job> jobs = generateJobs(count, n);
+
+
+        //saljem broadcast sa poslovima, svako 'uzme' po jedan posao i updateuje message broadcasta (json)
+        Job myJob = jobs.get(0);
+        jobs.remove(myJob);
+        new CommunicatorThread(this, new CommPackage(this.getNodeInfo(), gson.toJson(jobs), PackageType.START, null)).run();
+        beginJob(myJob);
+
+        //updatefingertable
+    }
+
+    public void beginJob(Job job){
+        NQueensSolver solver = new NQueensSolver();
+        solver.solve(job.getRangeStart(), job.getRangeEnd(), job.getMatrixSize());
+        System.out.println("Solver zavrsio? " + solver.isFinished());
+        Result result = solver.getResult();
+
+        job.setResult(result);
+        job.setStatus(JobStatus.COMPLETED);
+
+        if (results.hasResultsFor(job.getMatrixSize())){
+            results.getResultSet(job.getMatrixSize()).addJob(job);
+        } else {
+            results.addResultSet(job.getMatrixSize(), new ResultSet());
+            results.getResultSet(job.getMatrixSize()).addJob(job);
+        }
+        System.out.println("Zavrsio racunanje");
+    }
+
+    private ArrayList<Job> generateJobs(int count, int n){
+        ArrayList<Job> jobs = new ArrayList<>();
+        int start = 1;
+        int range = (int)Math.pow(n, n)/count;
+        for (int i = 1; i < count; i++){
+            jobs.add(new Job(start, i * range - 1, n));
+            start += range+1;
+        }
+        jobs.add(new Job(start, (int)Math.pow(n,n), n));
+        return jobs;
     }
 
     public void joinBootstrap(){
@@ -95,7 +143,6 @@ public class Node {
         synchronized (visibleNodes){
             if (!hasVisibleNode(nodeInfo)) {
                 addVisibleNode(nodeInfo);
-                System.out.println("added successor guid:"+ nodeInfo.getNodeGUID() +" to visiblenodes");
             }
             if (successorNode != null){
                 for (NodeInfo n : visibleNodes){
@@ -114,7 +161,7 @@ public class Node {
             return false;
         }
         visibleNodes.add(nodeInfo);
-        System.out.println("Dodao cvor "+ nodeInfo.getNodeGUID() + " u visible nodes");
+        System.out.println("Dodao cvor "+ nodeInfo.getNodeGUID() + " u visible nodes.");
         return true;
     }
 
@@ -201,6 +248,14 @@ public class Node {
             }
         }
         return false;
+    }
+
+    public FingerTable getFingerTable() {
+        return fingerTable;
+    }
+
+    public Results getResults() {
+        return results;
     }
 
     @Override

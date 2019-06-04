@@ -22,7 +22,7 @@ public class NewNodeReorganizationHandler {
 
 
     public void handle(CommPackage p){
-        System.out.println("dobio zahtev za reorganizaciju od cvora: "+ p.getSenderNode());
+        System.out.println("Dobio zahtev za reorganizaciju od cvora: "+ p.getSenderNode());
         NodeInfo newNode = p.getSenderNode();
 
         if (thisNode.getVisibleNodes().isEmpty()){
@@ -34,15 +34,15 @@ public class NewNodeReorganizationHandler {
             //Ako cvor vidi druge cvorove, trazi odgovarajuci da vrati novom cvoru kao "naslednika"
             if (thisNode.getNodeInfo().getNodeGUID() < newNode.getNodeGUID()) {
                 //Ako je trenutni manji od novog cvora
-                System.out.println("Ja sam manji od novog cvora");
+                //System.out.println("Ja sam manji od novog cvora");
                 NodeInfo n = thisNode.getLargestGUIDVisibleNodeLesserThanIncludingThisNode(newNode.getNodeGUID());
 
                 if (n.getNodeGUID() == thisNode.getNodeInfo().getNodeGUID()){
-                    System.out.println("Ja sam taj cvor");
+                    //System.out.println("Ja sam taj cvor");
                     insertNewNodeAsMySuccessor(newNode, p);
                 }
                 else {
-                    System.out.println("Ja nisam taj cvor");
+                    //System.out.println("Ja nisam taj cvor");
                     //prosledi zahtev cvoru n
                     p.setTargetNode(n);
                     new CommunicatorThread(thisNode, p).run();
@@ -51,7 +51,7 @@ public class NewNodeReorganizationHandler {
             }
             else {
                 //Ako je trenutni veci od novog cvora
-                System.out.println("Ja sam veci od novog cvora");
+                //System.out.println("Ja sam veci od novog cvora");
 
                 if (this.thisNode.getSuccessorNode().getNodeGUID() < this.thisNode.getNodeInfo().getNodeGUID()){
                     //Moj naslednik je manji od mene, dakle ja sam na kraju prstena

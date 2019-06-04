@@ -1,6 +1,9 @@
 package solution.peer.threads;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import solution.n_queens.Job;
+import solution.n_queens.NQueensSolver;
 import solution.peer.NewNodeReorganizationHandler;
 import solution.peer.NodeInfo;
 import solution.peer.commPackage.CommPackage;
@@ -10,6 +13,7 @@ import solution.socket.MySocket;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class HandlerThread extends Thread {
 
@@ -42,7 +46,7 @@ public class HandlerThread extends Thread {
     private void determinePackageType(CommPackage p){
         switch (p.getType()) {
             case START:{
-                System.out.println("Handling START message type");
+                handleStartBroadcast(p);
                 break;
             }
             case PING:{
@@ -54,7 +58,6 @@ public class HandlerThread extends Thread {
                 break;
             }
             case BOOTSTRAP_JOIN:{
-                System.out.println("Handling join");
                 handleBootstrapJoin(p);
                 break;
             }
@@ -78,9 +81,36 @@ public class HandlerThread extends Thread {
                 handleLeaveBroadcast(p);
                 break;
             }
+            case COUNT:{
+                handleCountBroadcast(p);
+                break;
+            }
             default:{
                 System.err.println("default in handlerthread");
             }
+        }
+    }
+
+    private void handleStartBroadcast(CommPackage p){
+        if (p.getSenderNode().getNodeGUID() == thisNode.getNodeInfo().getNodeGUID()){
+            System.out.println("Svi zapoceli poslove!");
+        }
+        else {
+            ArrayList<Job> jobs = gson.fromJson(p.getMessage(),  new TypeToken<ArrayList<Job>>(){}.getType());
+            Job myJob = jobs.get(0);
+            jobs.remove(myJob);
+            p.setMessage(gson.toJson(jobs));
+            System.out.println("Uzeo sam posao "+ myJob);
+
+            try {
+                System.out.println("Prosledjujem start broadcast...");
+                socket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+                socket.write(p);
+                socket.close();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            thisNode.beginJob(myJob);
         }
     }
 
@@ -110,7 +140,6 @@ public class HandlerThread extends Thread {
         if (recievedNode == null){
             System.err.println("Primljen cvoj je null");
         } else {
-            System.out.println("Primljeni cvor je "+ recievedNode);
             System.out.println("Zapocinjem reorganizaciju...");
 
             CommPackage commPackage = new CommPackage(
@@ -194,7 +223,29 @@ public class HandlerThread extends Thread {
      */
     private void handleSetSuccessor(CommPackage p){
         NodeInfo successorNode = gson.fromJson(p.getMessage(), NodeInfo.class);
-        System.out.println("Moj naslednik je "+ successorNode);
+        System.out.println("Menjam naslednika u node "+ successorNode.getNodeGUID());
         thisNode.setSuccessorNode(successorNode);
+    }
+
+    private void handleCountBroadcast(CommPackage p){
+        if (p.getSenderNode().getNodeGUID() == thisNode.getNodeInfo().getNodeGUID()){
+            System.out.println("Count broadcast uspesno obavljen!");
+            int count = Integer.parseInt(p.getMessage());
+            System.out.println("Prebrojao sam da ih ima: "+ count);
+            thisNode.initiateJobs(count, p.getTargetNode().getNodeGUID());// node guid je n
+        }
+        else {
+            System.out.println("Cvor "+ p.getSenderNode().getNodeGUID() +" salje count broadcast, broj: "+ p.getMessage());
+            try {
+                int count = Integer.parseInt(p.getMessage());
+                p.setMessage(Integer.toString(++count));
+                System.out.println("Prosledjujem count broadcast...");
+                socket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+                socket.write(p);
+                socket.close();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 }
