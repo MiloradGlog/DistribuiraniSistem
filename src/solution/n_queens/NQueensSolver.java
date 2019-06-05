@@ -8,6 +8,7 @@ public class NQueensSolver {
     private Result result;
     private boolean finished;
     private int n;
+    private int progress;
 
     public NQueensSolver(){
         finished = false;
@@ -16,6 +17,8 @@ public class NQueensSolver {
 
     public void solve(int start, int end, int n){
         finished = false;
+        progress = 0;
+        int range = end - start;
         this.n = n;
         int[][] curr;
         System.out.println("iterations:");
@@ -24,9 +27,11 @@ public class NQueensSolver {
             if (isSolution(curr, n)){
                 result.addResult(curr);
             }
+            progress = ((i - start + 1) / range) * 100;
         }
-        printResults();
+        //printResults();
         finished = true;
+        progress = 100;
     }
 
 
@@ -137,6 +142,10 @@ public class NQueensSolver {
             }
         }
         return true;
+    }
+
+    public int getProgress() {
+        return progress;
     }
 
     public Result getResult() {

@@ -1,9 +1,10 @@
 package solution.peer.threads;
 
+import com.google.gson.Gson;
 import solution.peer.NodeInfo;
+import solution.peer.commPackage.Broadcast;
 import solution.peer.commPackage.CommPackage;
 import solution.peer.Node;
-import solution.peer.commPackage.PackageType;
 import solution.socket.MySocket;
 
 import java.io.*;
@@ -25,7 +26,7 @@ public class CommunicatorThread extends Thread{
 
         switch (commPackage.getType()){
             case START:{
-                sendStartBroadcast();
+                sendStartBroadcastWalk();
                 break;
             }
             case PING:{
@@ -44,16 +45,32 @@ public class CommunicatorThread extends Thread{
                 sendNewNodeReorganizationRequest();
                 break;
             }
+            case WALK:{
+                sendWalkBroadcast();
+                break;
+            }
+            case LEAVE_WALK:{
+                sendLeaveWalkBroadcast();
+                break;
+            }
+            case COUNT_WALK:{
+                sendCountWalkBroadcast();
+                break;
+            }
             case BROADCAST:{
                 sendBroadcast();
                 break;
             }
-            case BROADCAST_LEAVE:{
-                sendLeaveBroadcast();
+            case UPDATE_FINGER_TABLE_BROADCAST:{
+                sendUpdateFingerTableBroadCast();
                 break;
             }
-            case COUNT:{
-                sendCountBroadcast();
+            case COLLECT_ALL_NODES_WALK:{
+                sendCollectAllNodesWalk();
+                break;
+            }
+            case UPDATE_RESULT_BROADCAST:{
+                sendUpdateResultWalkBroadcast();
                 break;
             }
             default:{
@@ -84,7 +101,62 @@ public class CommunicatorThread extends Thread{
     }
 */
 
-    private void sendStartBroadcast(){
+    private void sendBroadcast(){
+        try {
+            System.out.println("Sending broadcast...");
+
+            for (NodeInfo node : thisNode.getVisibleNodes()){
+                mySocket = new MySocket(node.getNodeAddress(), node.getNodePort());
+
+                mySocket.write(commPackage);
+
+                mySocket.close();
+
+                System.out.println("Sent broadcast to: "+ node.getNodeGUID());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        thisNode.addToRecievedBroadcasts(gson.fromJson(commPackage.getMessage(), Broadcast.class));
+    }
+
+    private void sendCollectAllNodesWalk(){
+        try {
+            System.out.println("Sending collect nodes walk broadcast...");
+
+            mySocket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+
+            mySocket.write(commPackage);
+
+            mySocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendUpdateFingerTableBroadCast(){
+        try {
+            System.out.println("Sending updatefingertable broadcast with resultSet:");
+            System.out.println(commPackage.getMessage());
+            NodeInfo node = thisNode.getSuccessorNode();
+//            for (NodeInfo node : thisNode.getVisibleNodes()){
+                mySocket = new MySocket(node.getNodeAddress(), node.getNodePort());
+
+                mySocket.write(commPackage);
+
+                mySocket.close();
+
+                System.out.println("Sent broadcast to: "+ node.getNodeGUID());
+//            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        thisNode.addToRecievedBroadcasts(gson.fromJson(commPackage.getMessage(), Broadcast.class));
+    }
+
+    private void sendStartBroadcastWalk(){
         try {
             System.out.println("Sending start broadcast...");
 
@@ -140,9 +212,9 @@ public class CommunicatorThread extends Thread{
         }
     }
 
-    private void sendBroadcast(){
+    private void sendWalkBroadcast(){
         try {
-            System.out.println("Sending broadcast...");
+            System.out.println("Sending walk broadcast...");
 
             mySocket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
 
@@ -154,9 +226,9 @@ public class CommunicatorThread extends Thread{
         }
     }
 
-    private void sendLeaveBroadcast(){
+    private void sendLeaveWalkBroadcast(){
         try {
-            System.out.println("Sending leave broadcast...");
+            System.out.println("Sending leave walk broadcast...");
 
             mySocket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
 
@@ -180,9 +252,25 @@ public class CommunicatorThread extends Thread{
         }
     }
 
-    private void sendCountBroadcast(){
+    private void sendCountWalkBroadcast(){
         try {
-            System.out.println("Sending count broadcast...");
+            System.out.println("Sending count walk broadcast...");
+
+
+            mySocket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+
+            mySocket.write(commPackage);
+
+            mySocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendUpdateResultWalkBroadcast(){
+        try {
+            System.out.println("Sending updateresult walk broadcast...");
+
 
             mySocket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
 

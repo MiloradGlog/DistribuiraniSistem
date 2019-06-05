@@ -36,6 +36,7 @@ public class NodeInfo {
         this.nodeAddress = nodeAddress;
     }
 
+
     @Override
     public String toString() {
         return "NodeInfo{" +

@@ -1,18 +1,26 @@
 package solution.n_queens;
 
+import solution.peer.NodeInfo;
+
 public class Job {
 
+    private String jobID;
     private int rangeStart;
     private int rangeEnd;
     private int matrixSize;
     private JobStatus status;
     private Result result;
+    private NodeInfo assignedTo;
+    private boolean taken;
 
     public Job(int rangeStart, int rangeEnd, int matrixSize) {
+        jobID = Integer.toString(rangeStart) + System.currentTimeMillis() + rangeEnd;
         this.rangeStart = rangeStart;
         this.rangeEnd = rangeEnd;
         this.matrixSize = matrixSize;
         this.status = JobStatus.STARTED;
+        this.assignedTo = null;
+        this.taken = false;
     }
 
     public int getRangeStart() {
@@ -49,6 +57,39 @@ public class Job {
 
     public int getMatrixSize() {
         return matrixSize;
+    }
+
+    public boolean isTaken() {
+        return taken;
+    }
+
+    public void setTaken(boolean taken) {
+        this.taken = taken;
+    }
+
+    public NodeInfo getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(NodeInfo assignedTo) {
+        this.assignedTo = assignedTo;
+    }
+
+    public String getJobID() {
+        return jobID;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Job){
+            if (((Job)obj).getJobID() == jobID){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        return super.equals(obj);
     }
 
     @Override

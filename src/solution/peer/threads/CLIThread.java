@@ -3,9 +3,12 @@ package solution.peer.threads;
 import com.google.gson.Gson;
 import solution.peer.Node;
 import solution.peer.NodeInfo;
+import solution.peer.commPackage.Broadcast;
 import solution.peer.commPackage.CommPackage;
 import solution.peer.commPackage.PackageType;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -47,7 +50,7 @@ public class CLIThread extends Thread {
                     showResultForX(n);
                     break;
                 }
-                sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), "1", PackageType.COUNT, new NodeInfo(n, 0, "")));//nodeinfo nosi X
+                sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), "1", PackageType.COUNT_WALK, new NodeInfo(n, 0, "")));//nodeinfo nosi X
                 break;
             }
             case ("result"): {
@@ -63,21 +66,28 @@ public class CLIThread extends Thread {
             case ("leave"): {
                 System.out.println("leaving...");
                 sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), "", PackageType.BOOTSTRAP_LEAVE, null));
-                sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), gson.toJson(thisNode.getSuccessorNode()), PackageType.BROADCAST_LEAVE, null));
+                sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), gson.toJson(thisNode.getSuccessorNode()), PackageType.LEAVE_WALK, null));
                 break;
             }case ("broadcast"): {
                 System.out.println("Attempting broadcast...");
-                sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), parameterString, PackageType.BROADCAST, null));
+                sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), gson.toJson(new Broadcast(thisNode.getNodeInfo().getNodeGUID(), parameterString)), PackageType.BROADCAST, null));
                 break;
             }
             case ("status"): {
-                System.out.println("Cvor: "+ thisNode.getNodeInfo().getNodeGUID());
+                System.out.println("Cvor: "+ thisNode);
                 try {
                     System.out.println("Naslednik mu je: "+ thisNode.getSuccessorNode().getNodeGUID());
                 } catch (NullPointerException e){
                     System.out.println("Jedini cvor u mrezi.");
                 }
                 System.out.println("Vidi cvorove: \n"+ thisNode.getVisibleNodes());
+                System.out.println("Results:"+ thisNode.getResults());
+                break;
+            }
+            case ("updatevisible"):{
+                System.out.println("Attempting to update visible nodes for all...");
+                List<NodeInfo> nodes = new ArrayList<>();
+                sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), gson.toJson(nodes), PackageType.COLLECT_ALL_NODES_WALK, null));
                 break;
             }
             default: {

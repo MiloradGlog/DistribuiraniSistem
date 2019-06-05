@@ -3,6 +3,7 @@ package solution.peer;
 import com.google.gson.Gson;
 import solution.configuration.NodeConfigModel;
 import solution.n_queens.*;
+import solution.peer.commPackage.Broadcast;
 import solution.peer.commPackage.CommPackage;
 import solution.peer.commPackage.PackageType;
 import solution.peer.threads.CLIThread;
@@ -15,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Node {
@@ -25,8 +27,9 @@ public class Node {
     private NodeConfigModel configModel;
     private List<NodeInfo> visibleNodes;
     private NodeInfo successorNode;
-    private FingerTable fingerTable;
     private Results results;
+    private ArrayList<Broadcast> recievedBroadcasts;
+    private NQueensSolver currentSolver;
 
     public Node (String configFilePath){
         this.visibleNodes = Collections.synchronizedList(new ArrayList<NodeInfo>());
@@ -34,20 +37,11 @@ public class Node {
         this.configModel = readConfig(configFilePath);
         this.configFilePath = configFilePath;
         this.nodeInfo = new NodeInfo(configModel.getNodeGUID(), configModel.getNodePort(), configModel.getNodeAddress());
-        this.fingerTable = new FingerTable();
         this.results = new Results();
+        this.recievedBroadcasts = new ArrayList<>();
         this.initialize();
     }
-/*
-    public Node(int nodeGUID, int nodePort, String nodeAddress, String configFilePath) {
-        this.gson = new Gson();
-        this.configFilePath = configFilePath;
-        this.nodeGUID = nodeGUID;
-        this.nodePort = nodePort;
-        this.nodeAddress = nodeAddress;
-        this.initialize();
-    }
-*/
+
     private void initialize(){
         try {
             System.out.println("Initializing node: "+ this.toString());
@@ -67,47 +61,119 @@ public class Node {
 
     }
 
+//    public void updateVisibleNodesBasedOnResultSet(ResultSet resultSet){
+//        List<NodeInfo> list = Collections.synchronizedList(new ArrayList<NodeInfo>());
+//        for (Job j : resultSet.getFingerTable().getKeySet()){
+//            if (!list.contains(resultSet.getFingerTable().getTable().get(j))){
+//                list.add(resultSet.getFingerTable().getTable().get(j));
+//            }
+//        }
+//        System.out.println("Izracunao da mi je novi visiblenodes list:\n"+ list);
+//    }
+
+    public void updateVisibleNodes(ArrayList<NodeInfo> nodes){
+        List<NodeInfo> newVisibleNodes = Collections.synchronizedList(new ArrayList<NodeInfo>());
+
+        int count = 1;
+        int x = 0;
+
+        Collections.sort(nodes, Comparator.comparing(NodeInfo::getNodeGUID) );
+        int myIndex = 0;
+        while (nodes.get(myIndex).getNodeGUID() != getNodeInfo().getNodeGUID()){
+            myIndex++;
+        }
+        //nasao svoj index
+        int listSize = nodes.size();
+        //ovaj algoritam treba da bude u updatevisiblenodes
+        for (int i = 0; i < listSize - 1 ; i++){
+            NodeInfo node = nodes.get(++myIndex % listSize);
+            if (count++ == Math.pow(2, x)){
+                System.out.println("Node "+ node.getNodeGUID() +" je od mene udaljen 2 na "+ ++x);
+                newVisibleNodes.add(node);
+            }
+        }
+        visibleNodes = newVisibleNodes;
+    }
+
+    public void updateFingerTableForResultSet(ResultSet resultSet){
+        System.err.println("Updating fingertable for resultset");
+
+        int n = resultSet.getN();
+
+        if (!results.hasResultsFor(n)){
+            System.err.println("nemam rezultate za to n");
+            //da li?
+            results.addResultSet(n, resultSet);
+        }
+
+        results.getResultSet(n).getFingerTable().updateFingerTable(visibleNodes, resultSet);
+//        updateVisibleNodesBasedOnResultSet(results.getResultSet(n));
+    }
+
+    public void sendUpdateJobPackage(Job job){
+        UpdateJobPackage jobPackage = new UpdateJobPackage(job.getMatrixSize(), job);
+        new CommunicatorThread(this, new CommPackage(getNodeInfo(), gson.toJson(jobPackage), PackageType.UPDATE_RESULT_BROADCAST, null)).start();
+    }
+
     public void initiateJobs(int count, int n){
+        if (results.hasResultsFor(n)){
+            System.err.println("Already have results for n, returning...");
+            return;
+        }
         //podelim poslove;
-        ArrayList<Job> jobs = generateJobs(count, n);
 
+        //dodam poslove u resultset ako ih vec nema, ako ima obavestim
+        ResultSet resultSet = generateJobs(count, n);
+        Job myJob = resultSet.getFreeJob();
+        resultSet.takeJob(myJob, this.getNodeInfo());
 
-        //saljem broadcast sa poslovima, svako 'uzme' po jedan posao i updateuje message broadcasta (json)
-        Job myJob = jobs.get(0);
-        jobs.remove(myJob);
-        new CommunicatorThread(this, new CommPackage(this.getNodeInfo(), gson.toJson(jobs), PackageType.START, null)).run();
+        if (results.hasResultsFor(n)){
+            System.err.println("Vec imam rezultat za to n");
+        } else {
+            results.addResultSet(n, resultSet);
+        }
+        //zovem beginjob sto uzme jedan slobodan cvor iz rezultseta za dato n
+
+        //saljem broadcast sa resultset-om, svako 'uzme' po jedan posao i updateuje message broadcasta (json)
+        new CommunicatorThread(this, new CommPackage(this.getNodeInfo(), gson.toJson(resultSet), PackageType.START, null)).start();
         beginJob(myJob);
 
         //updatefingertable
     }
 
+//    private Job getFreeJob(){}
+
     public void beginJob(Job job){
+
         NQueensSolver solver = new NQueensSolver();
+        currentSolver = solver;
         solver.solve(job.getRangeStart(), job.getRangeEnd(), job.getMatrixSize());
         System.out.println("Solver zavrsio? " + solver.isFinished());
-        Result result = solver.getResult();
 
+        Result result = solver.getResult();
+        //dodaj odma rezultat a ne kad je zavrseno racunanje
         job.setResult(result);
         job.setStatus(JobStatus.COMPLETED);
+        //broadcastuj rezultat svima
+        sendUpdateJobPackage(job);
 
         if (results.hasResultsFor(job.getMatrixSize())){
             results.getResultSet(job.getMatrixSize()).addJob(job);
         } else {
-            results.addResultSet(job.getMatrixSize(), new ResultSet());
-            results.getResultSet(job.getMatrixSize()).addJob(job);
+            System.err.println("Nemam taj resultset u koji da smestim rezultat koji sam izracunao [beginjob]");
         }
         System.out.println("Zavrsio racunanje");
     }
 
-    private ArrayList<Job> generateJobs(int count, int n){
-        ArrayList<Job> jobs = new ArrayList<>();
+    private ResultSet generateJobs(int count, int n){
+        ResultSet jobs = new ResultSet(this.getNodeInfo(), n);
         int start = 1;
         int range = (int)Math.pow(n, n)/count;
         for (int i = 1; i < count; i++){
-            jobs.add(new Job(start, i * range - 1, n));
+            jobs.addJob(new Job(start, i * range - 1, n));
             start += range+1;
         }
-        jobs.add(new Job(start, (int)Math.pow(n,n), n));
+        jobs.addJob(new Job(start, (int)Math.pow(n,n), n));
         return jobs;
     }
 
@@ -129,14 +195,6 @@ public class Node {
         }
         NodeConfigModel model = gson.fromJson(sb.toString(), NodeConfigModel.class);
         return model;
-    }
-
-    public void saveConfig(){
-        try (PrintWriter out = new PrintWriter("files/config.json")) {
-            out.println(gson.toJson(configModel));
-        } catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
     public void setSuccessorNode(NodeInfo nodeInfo){
@@ -221,12 +279,24 @@ public class Node {
         return max;
     }
 
-    public NodeInfo getNodeInfo() {
-        return nodeInfo;
+    public boolean recievedBroadcast(Broadcast b){
+        if (recievedBroadcasts.contains(b)){
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public void setNodeInfo(NodeInfo nodeInfo) {
-        this.nodeInfo = nodeInfo;
+    public void addToRecievedBroadcasts(Broadcast b){
+        if (recievedBroadcasts.contains(b)){
+            System.err.println("Already have that broadcast");
+            return;
+        }
+        recievedBroadcasts.add(b);
+    }
+
+    public NodeInfo getNodeInfo() {
+        return nodeInfo;
     }
 
     public NodeConfigModel getConfigModel() {
@@ -250,8 +320,8 @@ public class Node {
         return false;
     }
 
-    public FingerTable getFingerTable() {
-        return fingerTable;
+    public int getCurrentSolverProgress(){
+        return currentSolver.getProgress();
     }
 
     public Results getResults() {

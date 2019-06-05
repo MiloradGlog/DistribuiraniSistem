@@ -32,12 +32,10 @@ public class BootstrapHandlerThread extends Thread {
             socket.close();
             switch (p.getType()) {
                 case BOOTSTRAP_JOIN:{
-                    System.out.println("Handling JOIN message type");
                     handleJoin(p);
                     break;
                 }
                 case BOOTSTRAP_LEAVE:{
-                    System.out.println("Handle leave");
                     handleLeave(p);
                     break;
                 }
@@ -54,7 +52,6 @@ public class BootstrapHandlerThread extends Thread {
 
     private void handleJoin(CommPackage p){
         try {
-            System.out.println("Servent ID:[" + p.getSenderNode() + "] bi da bude dodat");
             socket = new MySocket(p.getSenderNode().getNodeAddress(), p.getSenderNode().getNodePort());
 
             NodeInfo randomNode = null;
@@ -63,7 +60,7 @@ public class BootstrapHandlerThread extends Thread {
             }
 
             if (addNodeToList(p.getSenderNode())){
-                System.out.println("Uspesno dodao cvor u bootstrap");
+                System.out.println("Uspesno dodao cvor "+ p.getSenderNode().getNodeGUID() +" u bootstrap");
             } else {
                 System.err.println("Dodavanje nije uspelo");
             }
@@ -78,16 +75,15 @@ public class BootstrapHandlerThread extends Thread {
             System.err.println("IOException in HandlerThread run method\nStackTrace:");
             ioException.printStackTrace();
         }
-        printStatus();
+//        printStatus();
     }
 
     private void handleLeave(CommPackage p){
         try {
-            System.out.println("Servent ID:[" + p.getSenderNode() + "] bi da izadje");
             socket = new MySocket(p.getSenderNode().getNodeAddress(), p.getSenderNode().getNodePort());
 
             if (removeNodeFromList(p.getSenderNode())){
-                p.setMessage("Uspesno obrisan sa bootstrapa");
+                p.setMessage("Cvor "+ p.getSenderNode().getNodeGUID() +" uspesno obrisan sa bootstrapa");
             } else {
                 p.setMessage("Brisanje nije uspelo");
             }
@@ -99,7 +95,7 @@ public class BootstrapHandlerThread extends Thread {
             System.err.println("IOException in HandlerThread run method\nStackTrace:");
             ioException.printStackTrace();
         }
-        printStatus();
+//        printStatus();
     }
 
     private boolean addNodeToList(NodeInfo nodeInfo){

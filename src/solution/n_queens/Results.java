@@ -35,4 +35,11 @@ public class Results {
     public HashMap<Integer, ResultSet> getResults() {
         return results;
     }
+
+    @Override
+    public String toString() {
+        return "Results{" +
+                "results=" + results +
+                '}';
+    }
 }
