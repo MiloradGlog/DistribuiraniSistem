@@ -1,6 +1,8 @@
 package solution.peer.threads;
 
 import com.google.gson.Gson;
+import solution.n_queens.Job;
+import solution.n_queens.ResultSet;
 import solution.peer.Node;
 import solution.peer.NodeInfo;
 import solution.peer.commPackage.Broadcast;
@@ -88,6 +90,33 @@ public class CLIThread extends Thread {
                 System.out.println("Attempting to update visible nodes for all...");
                 List<NodeInfo> nodes = new ArrayList<>();
                 sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), gson.toJson(nodes), PackageType.COLLECT_ALL_NODES_WALK, null));
+                break;
+            }
+            case ("progress"):{
+                System.out.println("Trenutni napredak: "+ thisNode.getCurrentSolverProgress());
+                break;
+            }
+            case ("teststeal"):{
+                System.out.println("Testiram steal");
+                int n = Integer.parseInt(parameterString);
+
+                ResultSet resultSet = thisNode.getResults().getResultSet(n);
+                Job job = resultSet.getRandomUnfinishedJob(thisNode.getNodeInfo());
+
+                System.out.println("Hocu da pokradem posao:"+ job);
+
+                job = resultSet.getFingerTable().findKeyByJob(job);
+                NodeInfo targetNode = resultSet.getFingerTable().getTable().get(job);
+                if (targetNode == null){
+                    System.err.println("targetNode in teststeal is null, setting to successor");
+                    targetNode = thisNode.getSuccessorNode();
+                }
+                System.out.println("hocu da pokradem cvor "+ targetNode);
+
+                CommPackage p = new CommPackage(thisNode.getNodeInfo(), gson.toJson(job), PackageType.STEAL_JOB, targetNode);
+
+                sendCommPackageViaCommThread(p);
+
                 break;
             }
             default: {

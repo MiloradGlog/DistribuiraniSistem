@@ -142,12 +142,35 @@ public class Node {
     }
 
 //    private Job getFreeJob(){}
+    public Job stealJob(Job j){
+        Job job = results.getResultSet(j.getMatrixSize()).getJob(j);
+
+        if (job.getStatus() == JobStatus.COMPLETED){
+            System.err.println("Cannot steal job, its completed");
+        }
+        if (job.getStatus() == JobStatus.LOCKED){
+            System.err.println("Cannot steal job, its locked");
+        }
+
+        System.out.println("Delim posao: "+ job +"\nTrenutni progres = "+ job.getProgress());
+        int jobEnd = job.getRangeEnd();
+        int range = jobEnd - job.getRangeStart();
+        int remainingRange = range/100*(100 - job.getProgress());
+        int split = jobEnd-remainingRange/2;
+        job.setRangeEnd(split);
+        Job job2 = new Job(split, jobEnd, job.getMatrixSize());
+        System.out.println("Nakon podele:");
+        System.out.println(job);
+        System.out.println(job2);
+
+        return job2;
+    }
 
     public void beginJob(Job job){
 
         NQueensSolver solver = new NQueensSolver();
         currentSolver = solver;
-        solver.solve(job.getRangeStart(), job.getRangeEnd(), job.getMatrixSize());
+        solver.solve(job);
         System.out.println("Solver zavrsio? " + solver.isFinished());
 
         Result result = solver.getResult();

@@ -1,5 +1,6 @@
 package solution;
 
+import solution.n_queens.Job;
 import solution.n_queens.NQueensSolver;
 import solution.peer.Node;
 import solution.peer.NodeInfo;
@@ -13,14 +14,13 @@ public class Main {
 
     /**TODO
      * 1)Osmisli i implementiraj kradju posla
-     *  1.1)Proveri progress racuna
-     *  1.2)Napravi f-ju koja jedan posao deli na dva jednaka dela i kao rezultat vraca novi posao i testiraj u main-u
-     *  1.3)Napravi f-ju koja se okida nakon sto sam zavrsio posao, nadje random job koji nije zavrsen i napravi zahtev za kradju od njega - za pocetak printaj
-     *  1.4)Napravi poruku STEAL_JOB koja ima origin i target node, kad se salje, pita za taj posao koji je najblizi cvor i njemu salje, to isto radi u handle sve
-     *      dok ne naidje na target cvor. testiraj printanjem.
-     *  1.5)Kad naidje 
+     *  1.5)Posalji nazad ukradeni posao i broadcastuj svima smanjeni posao.
+     *  1.6)Koristi postojeci updatejob kako bi prvo iz onog gde si ukrao poslao svima da updateuju taj job, a onda kad se vrati iz lopova da updateuju (dodaju) novi job
+     *  1.7)Implementiraj limit
      * 2)Resi greske
      * ...
+     *
+     * poznati bagovi : nekad nece fingertablea da se updateuje
      */
 
     public static void main(String[] args){
@@ -29,6 +29,24 @@ public class Main {
 
         new Node(configPath);
 
+//        testSteal();
+
     }
+
+//    private static void testSteal(){
+//        Job job = new Job(0, 5000, 6);
+//        job.setProgress(70);
+//        System.out.println("Delim posao: "+ job);
+//        int jobEnd = job.getRangeEnd();
+//        int range = jobEnd - job.getRangeStart();
+//        int remainingRange = range/100*(100 - job.getProgress());
+//        int split = jobEnd-remainingRange/2;
+//        job.setRangeEnd(split);
+//        Job job2 = new Job(split, jobEnd, job.getMatrixSize());
+//        System.out.println("Nakon podele:");
+//        System.out.println(job);
+//        System.out.println(job2);
+//
+//    }
 
 }

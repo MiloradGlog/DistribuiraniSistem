@@ -12,6 +12,7 @@ public class Job {
     private Result result;
     private NodeInfo assignedTo;
     private boolean taken;
+    private int progress;
 
     public Job(int rangeStart, int rangeEnd, int matrixSize) {
         jobID = Integer.toString(rangeStart) + System.currentTimeMillis() + rangeEnd;
@@ -21,6 +22,7 @@ public class Job {
         this.status = JobStatus.STARTED;
         this.assignedTo = null;
         this.taken = false;
+        this.progress = 0;
     }
 
     public int getRangeStart() {
@@ -79,10 +81,18 @@ public class Job {
         return jobID;
     }
 
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Job){
-            if (((Job)obj).getJobID() == jobID){
+            if (((Job)obj).getJobID().equals(jobID)){
                 return true;
             }
             else{
@@ -96,10 +106,11 @@ public class Job {
     public String toString() {
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Job{");
-        sb.append("rangeStart=").append(rangeStart);
+        sb.append("Job{id=").append(jobID);
+        sb.append(", rangeStart=").append(rangeStart);
         sb.append(", rangeEnd=").append(rangeEnd);
         sb.append(", status=").append(status);
+        sb.append(", assignedTo= ").append(assignedTo);
         sb.append("}\n");
         if (result != null){
             sb.append(result.getResultString(matrixSize));

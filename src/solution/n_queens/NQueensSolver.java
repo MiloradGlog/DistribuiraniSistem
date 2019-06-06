@@ -15,7 +15,10 @@ public class NQueensSolver {
         result = new Result();
     }
 
-    public void solve(int start, int end, int n){
+    public void solve(Job job){
+        int start = job.getRangeStart();
+        int end = job.getRangeEnd();
+        int n = job.getMatrixSize();
         finished = false;
         progress = 0;
         int range = end - start;
@@ -27,7 +30,9 @@ public class NQueensSolver {
             if (isSolution(curr, n)){
                 result.addResult(curr);
             }
-            progress = ((i - start + 1) / range) * 100;
+            progress = (int)((((double)(i - start + 1) / range)) * 100);
+            job.setProgress(progress);
+//            System.out.println("(("+i+"-"+start+"+1)/"+range+")*100 = "+ progress);
         }
         //printResults();
         finished = true;

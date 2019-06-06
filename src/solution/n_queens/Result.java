@@ -39,10 +39,6 @@ public class Result {
         return sb.toString();
     }
 
-    private void printMatrix(int[][] mat, int n){
-
-    }
-
     @Override
     public String toString() {
         return "Result{" +

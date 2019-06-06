@@ -73,6 +73,10 @@ public class CommunicatorThread extends Thread{
                 sendUpdateResultWalkBroadcast();
                 break;
             }
+            case STEAL_JOB:{
+                sendStealJobMessage();
+                break;
+            }
             default:{
                 System.err.println("no comm package type in commthread constructor");
                 break;
@@ -273,6 +277,22 @@ public class CommunicatorThread extends Thread{
 
 
             mySocket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+
+            mySocket.write(commPackage);
+
+            mySocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendStealJobMessage(){
+        try {
+            System.out.println("Sending steal job message...");
+
+            NodeInfo target = commPackage.getTargetNode();
+
+            mySocket = new MySocket(target.getNodeAddress(), target.getNodePort());
 
             mySocket.write(commPackage);
 

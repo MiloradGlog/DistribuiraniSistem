@@ -39,9 +39,26 @@ public class ResultSet {
         jobs.add(job);
     }
 
+    public Job getRandomUnfinishedJob(NodeInfo thisNode){
+        for (Job j : jobs){
+            if (j.isTaken() && j.getStatus() == JobStatus.STARTED && j.getAssignedTo().getNodeGUID() != thisNode.getNodeGUID()){
+                return j;
+            }
+        }
+        System.err.println("nema nezavrsenih cvorova");
+        return null;
+    }
+
+    public void updateResultSet(ResultSet resultSet){
+        for (Job j : resultSet.getJobs()){
+            updateJob(j);
+        }
+    }
+
     public void updateJob(Job j){
         for (Job job : jobs){
             if (job.equals(j)){
+                System.out.println("updated job "+ j);
                 job.setStatus(j.getStatus());
                 job.setRangeStart(j.getRangeStart());
                 job.setRangeEnd(j.getRangeEnd());

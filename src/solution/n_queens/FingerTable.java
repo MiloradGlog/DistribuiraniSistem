@@ -66,6 +66,16 @@ public class FingerTable {
         System.out.println(table);
     }
 
+    public Job findKeyByJob(Job j){
+        for (Job job : getKeySet()){
+            if (job.equals(j)){
+                return job;
+            }
+        }
+        System.err.println("couldnt find that job in fingertable [findkeybyjob], returning null");
+        return null;
+    }
+
     public Set<Job> getKeySet(){
         return table.keySet();
     }

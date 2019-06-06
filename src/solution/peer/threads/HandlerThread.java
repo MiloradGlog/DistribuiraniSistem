@@ -108,6 +108,10 @@ public class HandlerThread extends Thread {
                 handleUpdateResultWalkBroadcast(p);
                 break;
             }
+            case STEAL_JOB:{
+                handleStealJobMessage(p);
+                break;
+            }
             default:{
                 System.err.println("default in handlerthread");
             }
@@ -186,6 +190,7 @@ public class HandlerThread extends Thread {
 
         Broadcast b = gson.fromJson(p.getMessage(), Broadcast.class);
         ResultSet resultSet = gson.fromJson(b.getMessage(), ResultSet.class);
+        thisNode.getResults().getResultSet(resultSet.getN()).updateResultSet(resultSet);
         thisNode.updateFingerTableForResultSet(resultSet);
 
     }
@@ -195,6 +200,8 @@ public class HandlerThread extends Thread {
             System.out.println("Svi zapoceli poslove!");
             //ovde krecem updatefingertable broadcast
             ResultSet resultSet = new ResultSet(gson.fromJson(p.getMessage(),  ResultSet.class), thisNode.getNodeInfo());
+
+//            thisNode.getResults().getResultSet(resultSet.getN()).updateResultSet(resultSet);
             Broadcast broadcast = new Broadcast(thisNode.getNodeInfo().getNodeGUID(), gson.toJson(resultSet));
             //pravim commthread koji salje svima info o poslovima i gde su
             new CommunicatorThread(thisNode, new CommPackage(thisNode.getNodeInfo(), gson.toJson(broadcast), PackageType.UPDATE_FINGER_TABLE_BROADCAST, null)).start();
@@ -406,6 +413,34 @@ public class HandlerThread extends Thread {
             try {
                 System.out.println("Prosledjujem updatejob broadcast...");
                 socket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+                socket.write(p);
+                socket.close();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void handleStealJobMessage(CommPackage p){
+        if (p.getTargetNode().getNodeGUID() == thisNode.getNodeInfo().getNodeGUID()){
+            System.out.println("Dobio zahtev za kradju posla od cvora "+ p.getSenderNode().getNodeGUID());
+            Job job = gson.fromJson(p.getMessage(), Job.class);
+            System.out.println("Oce da mi pokradu posao "+ job);
+            Job stolenJob = thisNode.stealJob(job);
+            System.out.println("Stolen job = "+ stolenJob);
+            //uspesno ukrao posao, prosledi ga ovom sto je poslao zahtev!
+        }
+        else {
+            Job job = gson.fromJson(p.getMessage(), Job.class);
+            NodeInfo targetNode = thisNode.getResults().getResultSet(job.getMatrixSize()).getFingerTable().getTable().get(job);
+            if (targetNode == null){
+                System.err.println("nisam nasao node u fingertabeli, setujem ga na successora");
+                targetNode = thisNode.getSuccessorNode();
+            }
+
+            try {
+                System.out.println("Prosledjujem stealjob message...");
+                socket = new MySocket(targetNode.getNodeAddress(), targetNode.getNodePort());
                 socket.write(p);
                 socket.close();
             } catch (Exception e){
