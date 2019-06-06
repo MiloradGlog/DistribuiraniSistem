@@ -9,15 +9,12 @@ import solution.peer.commPackage.PackageType;
 import solution.peer.threads.CLIThread;
 import solution.peer.threads.CommunicatorThread;
 import solution.peer.threads.MainServerThread;
+import solution.suzuki_kasami.Token;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Node {
 
@@ -31,6 +28,11 @@ public class Node {
     private ArrayList<Broadcast> recievedBroadcasts;
     private NQueensSolver currentSolver;
 
+    //suzukikasami
+    private HashMap<NodeInfo, Integer> rnMap;
+    private Token token;
+    private boolean hasToken;
+
     public Node (String configFilePath){
         this.visibleNodes = Collections.synchronizedList(new ArrayList<NodeInfo>());
         this.gson = new Gson();
@@ -39,8 +41,31 @@ public class Node {
         this.nodeInfo = new NodeInfo(configModel.getNodeGUID(), configModel.getNodePort(), configModel.getNodeAddress());
         this.results = new Results();
         this.recievedBroadcasts = new ArrayList<>();
+
+        //suzuki
+        rnMap = new HashMap<>();
+        rnMap.put(this.getNodeInfo(), 0);
+        token = null;
+        hasToken = false;
         this.initialize();
     }
+
+    public void giveToken(Token t){
+        this.token = t;
+        this.hasToken = true;
+    }
+
+    public Token takeToken(){
+        if (!hasToken){
+            System.err.println("I cant give the token since I dont have it");
+            return null;
+        }
+        Token t = this.token;
+        this.token = null;
+        this.hasToken = false;
+        return t;
+    }
+
 
     private void initialize(){
         try {
@@ -347,8 +372,25 @@ public class Node {
         return currentSolver.getProgress();
     }
 
+    public HashMap<NodeInfo, Integer> getRnMap() {
+        return rnMap;
+    }
+
+    public boolean hasToken() {
+        return hasToken;
+    }
+
     public Results getResults() {
         return results;
+    }
+
+    public void updateRNMap(HashMap<NodeInfo, Integer> newMap){
+        System.out.println("RNMap before update "+ rnMap);
+        System.out.println(newMap.keySet().iterator().next().getClass());
+        for (NodeInfo nodeInfo : newMap.keySet()){
+            rnMap.put(nodeInfo, newMap.get(nodeInfo));
+        }
+        System.out.println("RNMap after update "+ rnMap);
     }
 
     @Override

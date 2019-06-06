@@ -13,11 +13,17 @@ import java.util.List;
 public class Main {
 
     /**TODO
-     * 1)Osmisli i implementiraj kradju posla
+     * 1)CS Token
+     *  1.1)Kad cvor udje doda se u mapu
+     *  1.5)Posalji svima updateovan rnmap
+     *  1.6)Ako imam token dodaj me u queue, ako nemam, taj ko vidi da sam ja povecao me doda u queue
+     *  1.7)Napravi popqueue funkciju koja ce da proveri koji je sledeci u queue, ako je to ovaj cvor popuje i krece izvrsavanje, ako nije prosledi token tome ko je na redu
+     *
+     * 2)Kradja posla
      *  1.5)Posalji nazad ukradeni posao i broadcastuj svima smanjeni posao.
      *  1.6)Koristi postojeci updatejob kako bi prvo iz onog gde si ukrao poslao svima da updateuju taj job, a onda kad se vrati iz lopova da updateuju (dodaju) novi job
      *  1.7)Implementiraj limit
-     * 2)Resi greske
+     * 3)Resi greske
      * ...
      *
      * poznati bagovi : nekad nece fingertablea da se updateuje

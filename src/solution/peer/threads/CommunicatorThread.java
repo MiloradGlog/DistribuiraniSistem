@@ -81,6 +81,18 @@ public class CommunicatorThread extends Thread{
                 sendTakeJobMessage();
                 break;
             }
+            case REQUEST_TOKEN:{
+                sendRequestToken();
+                break;
+            }
+            case SEND_TOKEN:{
+                sendToken();
+                break;
+            }
+            case UPDATE_RN_BROADCAST:{
+                sendUpdateRNBroadcast();
+                break;
+            }
             default:{
                 System.err.println("no comm package type in commthread constructor");
                 break;
@@ -309,6 +321,50 @@ public class CommunicatorThread extends Thread{
     private void sendTakeJobMessage(){
         try {
             System.out.println("Sending take job message...");
+
+            NodeInfo target = commPackage.getTargetNode();
+
+            mySocket = new MySocket(target.getNodeAddress(), target.getNodePort());
+
+            mySocket.write(commPackage);
+
+            mySocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendUpdateRNBroadcast(){
+        try {
+            System.out.println("Sending update rn broadcast...");
+
+            mySocket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+
+            mySocket.write(commPackage);
+
+            mySocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendRequestToken(){
+        try {
+            System.out.println("Sending requesttoken broadcast...");
+
+            mySocket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+
+            mySocket.write(commPackage);
+
+            mySocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendToken(){
+        try {
+            System.out.println("Sending token to + "+ commPackage.getTargetNode().getNodeGUID() +"...");
 
             NodeInfo target = commPackage.getTargetNode();
 

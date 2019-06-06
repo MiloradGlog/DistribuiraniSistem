@@ -12,11 +12,12 @@ import solution.peer.commPackage.CommPackage;
 import solution.peer.Node;
 import solution.peer.commPackage.PackageType;
 import solution.socket.MySocket;
+import solution.suzuki_kasami.Token;
+import solution.suzuki_kasami.TokenRequest;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class HandlerThread extends Thread {
 
@@ -114,6 +115,18 @@ public class HandlerThread extends Thread {
             }
             case TAKE_JOB:{
                 handleTakeJobMessage(p);
+                break;
+            }
+            case REQUEST_TOKEN:{
+                handleRequestTokenBroadcast(p);
+                break;
+            }
+            case SEND_TOKEN:{
+                handleGetTokenMessage(p);
+                break;
+            }
+            case UPDATE_RN_BROADCAST:{
+                handleUpdateRNBroadcast(p);
                 break;
             }
             default:{
@@ -296,6 +309,7 @@ public class HandlerThread extends Thread {
 
         if (recievedNode == null){
             System.err.println("Primljen cvoj je null");
+            //initToken();
         } else {
             System.out.println("Zapocinjem reorganizaciju...");
 
@@ -382,6 +396,9 @@ public class HandlerThread extends Thread {
         NodeInfo successorNode = gson.fromJson(p.getMessage(), NodeInfo.class);
         System.out.println("Menjam naslednika u node "+ successorNode.getNodeGUID());
         thisNode.setSuccessorNode(successorNode);
+
+        //ovde okinem updateRN
+        //new CommunicatorThread(thisNode, new CommPackage(thisNode.getNodeInfo(), gson.toJson(thisNode.getRnMap()), PackageType.UPDATE_RN_BROADCAST, null)).start();
     }
 
     private void handleCountWalkBroadcast(CommPackage p){
@@ -460,5 +477,72 @@ public class HandlerThread extends Thread {
         Job job = gson.fromJson(p.getMessage(), Job.class);
         System.out.println("Stolen job = "+ job);
         //posalji update za pokradjeni posao nakon sto ga dodelis sebi
+        thisNode.beginJob(job);
+
+    }
+
+    private void handleRequestTokenBroadcast(CommPackage p){
+        System.out.println("handling requesttoken broadcast");
+        if (p.getSenderNode().getNodeGUID() == thisNode.getNodeInfo().getNodeGUID()){
+            System.out.println("RequestToken uspesno obavljen!");
+        }
+        else {
+            //izvadi tokenrequest
+            System.out.println("Stigao tokenrequest, salje ga: "+ p.getSenderNode().getNodeGUID());
+            TokenRequest request = gson.fromJson(p.getMessage(), TokenRequest.class);
+            System.out.println("Request: "+ request);
+            try {
+                System.out.println("Prosledjujem tokenrequest broadcast...");
+                socket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+                socket.write(p);
+                socket.close();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void handleUpdateRNBroadcast(CommPackage p){
+        //ovde kad se vrati (okida se ako sam nov) poruka sebi setujem rn na vec postojece + mene
+
+        System.out.println("handling requesttoken broadcast");
+        if (p.getSenderNode().getNodeGUID() == thisNode.getNodeInfo().getNodeGUID()){
+            System.out.println("RequestToken uspesno obavljen!\nUpdateujem svoju mapu");
+            thisNode.updateRNMap(gson.fromJson(p.getMessage(), new TypeToken<HashMap<NodeInfo, Integer>>(){}.getType()));
+        }
+        else {
+            //izvadi mapu
+            System.out.println("Stigao updatemap, poruka: "+ p.getMessage() +" salje ga: "+ p.getSenderNode().getNodeGUID());
+            HashMap<NodeInfo, Integer> mapa;
+            mapa = gson.fromJson(p.getMessage(), new TypeToken<HashMap<Integer, HashMap<NodeInfo, Integer>>>(){}.getType());
+            System.out.println("Request: "+ mapa);
+            //ovde otvori mapu, uporedi sa svojom, updateuj ih i spakuj novu mapu da ide dalje
+            thisNode.updateRNMap(mapa);
+            //pazljivo, nisam proverio sve slucajeve za updatemap (sta ako je neko posle mene povecao svoju mapu a ja pojeo govna)
+            mapa = thisNode.getRnMap();
+            p.setMessage(gson.toJson(mapa));
+            try {
+                System.out.println("Prosledjujem updatemap broadcast...");
+                socket = new MySocket(thisNode.getSuccessorNode().getNodeAddress(), thisNode.getSuccessorNode().getNodePort());
+                socket.write(p);
+                socket.close();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        //ako je neki drugi on otvori mapu, kljuc koji nema doda u svoju i ponovo spakuje u message da se prosledi dalje mapa
+    }
+
+    private void handleGetTokenMessage(CommPackage p){
+        System.out.println("Handling token message");
+        //izvadi token
+    }
+
+    private void initToken(){
+        HashMap<NodeInfo, Integer> lnMap = new HashMap<>();
+        lnMap.put(thisNode.getNodeInfo(), 0);
+        Queue<NodeInfo> queue = new PriorityQueue<>();
+        thisNode.giveToken(new Token(lnMap, queue));
     }
 }

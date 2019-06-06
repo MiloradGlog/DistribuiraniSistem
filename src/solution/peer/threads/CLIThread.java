@@ -8,6 +8,7 @@ import solution.peer.NodeInfo;
 import solution.peer.commPackage.Broadcast;
 import solution.peer.commPackage.CommPackage;
 import solution.peer.commPackage.PackageType;
+import solution.suzuki_kasami.TokenRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +53,13 @@ public class CLIThread extends Thread {
                     showResultForX(n);
                     break;
                 }
+
+                //sendRequestToken();
+
+                //prebaci u tren kad se popuje ovaj cvor iz queuea;
                 sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), "1", PackageType.COUNT_WALK, new NodeInfo(n, 0, "")));//nodeinfo nosi X
                 break;
+
             }
             case ("result"): {
                 int n = Integer.parseInt(parameterString);
@@ -134,6 +140,16 @@ public class CLIThread extends Thread {
         }else {
             System.out.println("Nemam rezultate za to n");
         }
+
+    }
+
+    private void sendRequestToken(){
+
+        System.out.println("map before increment:\n"+ thisNode.getRnMap());
+        thisNode.getRnMap().put(thisNode.getNodeInfo(), thisNode.getRnMap().get(thisNode.getNodeInfo()));
+        System.out.println("map after increment:\n"+ thisNode.getRnMap());
+        TokenRequest request = new TokenRequest(thisNode.getNodeInfo(), thisNode.getRnMap().get(thisNode.getNodeInfo()));
+        sendCommPackageViaCommThread(new CommPackage(thisNode.getNodeInfo(), gson.toJson(request), PackageType.REQUEST_TOKEN, null));
 
     }
 
