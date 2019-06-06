@@ -77,6 +77,10 @@ public class CommunicatorThread extends Thread{
                 sendStealJobMessage();
                 break;
             }
+            case TAKE_JOB:{
+                sendTakeJobMessage();
+                break;
+            }
             default:{
                 System.err.println("no comm package type in commthread constructor");
                 break;
@@ -289,6 +293,22 @@ public class CommunicatorThread extends Thread{
     private void sendStealJobMessage(){
         try {
             System.out.println("Sending steal job message...");
+
+            NodeInfo target = commPackage.getTargetNode();
+
+            mySocket = new MySocket(target.getNodeAddress(), target.getNodePort());
+
+            mySocket.write(commPackage);
+
+            mySocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendTakeJobMessage(){
+        try {
+            System.out.println("Sending take job message...");
 
             NodeInfo target = commPackage.getTargetNode();
 

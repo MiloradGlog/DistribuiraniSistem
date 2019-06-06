@@ -2,32 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57a17273-5b7f-4ff3-b313-e1c52e380a89" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/n_queens/FingerTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/n_queens/FingerTable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/n_queens/Job.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/n_queens/Job.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/n_queens/NQueensSolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/n_queens/NQueensSolver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/n_queens/Result.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/n_queens/Result.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/n_queens/ResultSet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/n_queens/ResultSet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/Node.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/commPackage/PackageType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/commPackage/PackageType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/CLIThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/CLIThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/CommunicatorThread$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/CommunicatorThread$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/CommunicatorThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/CommunicatorThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/DistribuiraniSistem/solution/peer/threads/HandlerThread.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solution/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solution/n_queens/FingerTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/n_queens/FingerTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solution/n_queens/Job.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/n_queens/Job.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solution/n_queens/NQueensSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/n_queens/NQueensSolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solution/n_queens/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/n_queens/Result.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solution/n_queens/ResultSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/n_queens/ResultSet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solution/peer/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/peer/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java" afterDir="false" />
     </list>
@@ -44,7 +19,7 @@
         <entry file="file://$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="4" column="194" selection-start-line="4" selection-start-column="194" selection-end-line="4" selection-end-column="194" />
+              <caret line="4" column="204" selection-start-line="4" selection-start-column="204" selection-end-line="4" selection-end-column="204" />
             </state>
           </provider>
         </entry>
@@ -88,8 +63,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="294" selection-start-line="294" selection-end-line="294" />
+            <state relative-caret-position="-168">
+              <caret line="281" lean-forward="true" selection-start-line="281" selection-end-line="281" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -97,11 +72,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="430" column="73" selection-start-line="430" selection-start-column="73" selection-end-line="430" selection-end-column="73" />
+            <state relative-caret-position="595">
+              <caret line="461" column="70" selection-start-line="461" selection-start-column="70" selection-end-line="461" selection-end-column="70" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#handleCollectAllNodesWalk#0;class#HandlerThread#0" />
@@ -111,11 +86,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/solution/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="155">
-              <caret line="16" column="76" selection-start-line="16" selection-start-column="76" selection-end-line="16" selection-end-column="76" />
+              <caret line="16" column="31" lean-forward="true" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -254,15 +229,15 @@
         <option value="$PROJECT_DIR$/src/solution/n_queens/UpdateJobPackage.java" />
         <option value="$PROJECT_DIR$/src/solution/n_queens/NQueensSolver.java" />
         <option value="$PROJECT_DIR$/src/solution/n_queens/Result.java" />
-        <option value="$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java" />
-        <option value="$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java" />
         <option value="$PROJECT_DIR$/src/solution/n_queens/Job.java" />
         <option value="$PROJECT_DIR$/src/solution/n_queens/ResultSet.java" />
         <option value="$PROJECT_DIR$/src/solution/n_queens/FingerTable.java" />
         <option value="$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java" />
         <option value="$PROJECT_DIR$/src/solution/peer/Node.java" />
-        <option value="$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java" />
         <option value="$PROJECT_DIR$/src/solution/Main.java" />
+        <option value="$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java" />
+        <option value="$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java" />
+        <option value="$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java" />
       </list>
     </option>
   </component>
@@ -365,7 +340,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559781054630" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559782450321" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -456,12 +431,12 @@
       <workItem from="1559414111335" duration="8221000" />
       <workItem from="1559484992386" duration="12928000" />
       <workItem from="1559553809577" duration="19024000" />
-      <workItem from="1559726416340" duration="36357000" />
+      <workItem from="1559726416340" duration="37703000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128147000" />
+    <option name="totallyTimeSpent" value="129493000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -755,13 +730,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="194" selection-start-line="4" selection-start-column="194" selection-end-line="4" selection-end-column="194" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/solution/peer/commPackage/CommPackage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -818,23 +786,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="294" selection-start-line="294" selection-end-line="294" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="111" column="61" selection-start-line="111" selection-start-column="61" selection-end-line="111" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/solution/peer/Node.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
@@ -869,24 +820,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java">
+    <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/CLIThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="430" column="73" selection-start-line="430" selection-start-column="73" selection-end-line="430" selection-end-column="73" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#handleCollectAllNodesWalk#0;class#HandlerThread#0" />
-            <element signature="method#handleBootstrapJoin#0;class#HandlerThread#0" />
-          </folding>
+        <state relative-caret-position="380">
+          <caret line="111" column="61" selection-start-line="111" selection-start-column="61" selection-end-line="111" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/solution/peer/commPackage/PackageType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="204" selection-start-line="4" selection-start-column="204" selection-end-line="4" selection-end-column="204" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/solution/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
-          <caret line="16" column="76" selection-start-line="16" selection-start-column="76" selection-end-line="16" selection-end-column="76" />
+          <caret line="16" column="31" lean-forward="true" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/CommunicatorThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-168">
+          <caret line="281" lean-forward="true" selection-start-line="281" selection-end-line="281" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/solution/peer/threads/HandlerThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="461" column="70" selection-start-line="461" selection-start-column="70" selection-end-line="461" selection-end-column="70" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#handleCollectAllNodesWalk#0;class#HandlerThread#0" />
+            <element signature="method#handleBootstrapJoin#0;class#HandlerThread#0" />
           </folding>
         </state>
       </provider>

@@ -112,6 +112,10 @@ public class HandlerThread extends Thread {
                 handleStealJobMessage(p);
                 break;
             }
+            case TAKE_JOB:{
+                handleTakeJobMessage(p);
+                break;
+            }
             default:{
                 System.err.println("default in handlerthread");
             }
@@ -429,6 +433,9 @@ public class HandlerThread extends Thread {
             Job stolenJob = thisNode.stealJob(job);
             System.out.println("Stolen job = "+ stolenJob);
             //uspesno ukrao posao, prosledi ga ovom sto je poslao zahtev!
+            CommPackage returnPackage = new CommPackage(thisNode.getNodeInfo(), gson.toJson(stolenJob), PackageType.TAKE_JOB, p.getSenderNode());
+            new CommunicatorThread(thisNode, returnPackage).start();
+            //posalji update za pokradjeni posao
         }
         else {
             Job job = gson.fromJson(p.getMessage(), Job.class);
@@ -447,5 +454,11 @@ public class HandlerThread extends Thread {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void handleTakeJobMessage(CommPackage p){
+        Job job = gson.fromJson(p.getMessage(), Job.class);
+        System.out.println("Stolen job = "+ job);
+        //posalji update za pokradjeni posao nakon sto ga dodelis sebi
     }
 }
